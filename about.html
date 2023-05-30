@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Code Avenue</title>
+  </head>
+  <body>
+    <div class="navbar__div" id="nav-placeholder"></div>
+
+    <div class="about__div">
+      <h2>Hi, I am Mark Osteen and here is my story...</h2>
+      <video class="about__video" controls autoplay>
+        <source src="./videos/Android Navigation Drawer Menu Material Design _ Android studio tutorial _ Par.webm
+        " type="video/mp4" />
+        <!-- <source src="video.webm" type="video/webm" /> -->
+        <!-- <source src="video.ogv" type="video/ogg" /> -->
+        Your browser does not support the video tag.
+      </video>
+      <div class="about__video-div"></div>
+    </div>
+
+    <footer class="footer__div" id="footer-placeholder"></footer>
+    <script>
+      $(document).ready(function () {
+        $("#nav-placeholder").load("nav.html");
+        $("#footer-placeholder").load("footer.html");
+      });
+    </script>
+  </body>
+</html>

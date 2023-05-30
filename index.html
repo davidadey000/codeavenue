@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Code Avenue</title>
+    <style>
+      #content-preloader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        /* right: 0;
+        bottom: 0; */
+        width: 100%;
+        border-radius: 10px;
+        height: 100%;
+        background-color: #fff;
+        /* opacity: 0.9; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #content-loader {
+        border: 16px solid #f3f3f3;
+        border-top: 16px solid #3498db;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .home__top-selling-list {
+        position: relative;
+        min-height: 60vh;
+        width: 100%;
+      }
+
+      .home__top-selling {
+        width: 100%;
+      }
+
+      .home__hero-video {
+        /* margin-top: 5%; */
+     
+        z-index: 2;
+
+        /* max-height: 37.5vw; */
+      }
+      .home__hero {
+        position: relative;
+        z-index: 1;
+      }
+      .home__hero-content {
+        position: absolute;
+        bottom: -15%;
+        width: 100%;
+      }
+      .box-area2 {
+        z-index: -1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nav-placeholder" class="navbar__div"></div>
+    <!-- <div id="modal-placeholder"></div> -->
+
+    <div class="content">
+      <div class="home__new-hero">
+        <div class="home__hero">
+          <div class="home__hero-content">
+            <h1 class="home__hero-title">
+              Become the Developer That Companies Are Looking For!
+            </h1>
+            <video class="home__hero-video" controls autoplay>
+              <source src="./videos/Android Navigation Drawer Menu Material Design _ Android studio tutorial _ Par.webm" type="video/mp4" />
+              <!-- <source src="video.webm" type="video/webm" /> -->
+              <!-- <source src="video.ogv" type="video/ogg" /> -->
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="home__body-content" style="position: relative">
+        <div class="">
+          <ul class="box-area">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+        <div class="">
+          <ul class="box-area2">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+
+        <div class="home__body-content--first">
+          <div class="home__intro">
+            <div class="home__intro-div">
+              <h4 class="home__intro-hello home__div-title">< HELLO ></h4>
+              <h2 class="home__intro-name">I'm Mark Osteen</h2>
+              <p class="home__intro-text">
+                Are you feeling stuck or overwhelmed in your coding journey?
+                Don't worry, I've got your back! Together, we'll work to level
+                up your skills, increase your earning potential, and build a
+                brighter future. Let's make it happen!
+              </p>
+            </div>
+            <ul class="home__intro-facts">
+              <li>
+                <span class="home__intro-fact">20+</span>
+                <p class="home__intro-fact-label">Years of Experience</p>
+              </li>
+              <li>
+                <span class="home__intro-fact">10M+</span>
+                <p class="home__intro-fact-label">Students Taught</p>
+              </li>
+              <li>
+                <span class="home__intro-fact">3M</span>
+                <p class="home__intro-fact-label">Youtube Fans</p>
+              </li>
+              <li>
+                <span class="home__intro-fact">20</span>
+                <p class="home__intro-fact-label">Coding Courses</p>
+              </li>
+            </ul>
+          </div>
+          <div class="home__why">
+            <h4 class="home__div-title">< WHY Code Avenue ></h4>
+            <h2 class="home__why-text">Master the Coding Skills Like a Pro</h2>
+          </div>
+          <div class="home__reasons">
+            <div class="home__reason">
+              <div>
+                <h5 class="home__reason-title">STEP-BY-STEP LESSONS</h5>
+                <h3 class="home__reason-second-title">
+                  Beginner-Friendly and Easy to Follow
+                </h3>
+                <p class="home__reason-text">
+                  Mark's students consistently rave about his remarkable talent
+                  for simplifying complex concepts into easy-to-digest lessons
+                  that can be understood by anyone. With Mark's clear and
+                  concise approach, you can quickly learn and apply new tech
+                  skills, without getting bogged down in long and
+                  poorly-structured courses.
+                </p>
+              </div>
+              <div class="home__reason-img-div">
+                <img alt="" src="./images/why-simple.42c4851a.png" />
+              </div>
+            </div>
+            <div class="home__reason">
+              <div class="home__reason-img-div">
+                <img alt="" src="./images/why-concise.07bd0ff6.png" />
+              </div>
+              <div>
+                <h5 class="home__reason-title">FAST-TRACK YOUR LEARNING</h5>
+                <h3 class="home__reason-second-title">
+                  Right to the Point, No Fluff
+                </h3>
+                <p class="home__reason-text">
+                  Say goodbye to boring, repetitive lessons and say hello to
+                  Mark's dynamic teaching style. He keeps his lessons concise
+                  and to-the-point, free from buzzwords and confusing jargon.
+                  You'll learn everything you need to know, explained in plain
+                  English and backed by real-world examples.
+                </p>
+              </div>
+            </div>
+            <div class="home__reason">
+              <div>
+                <h5 class="home__reason-title">VIDEOS MADE WITH LOVE</h5>
+                <h3 class="home__reason-second-title">
+                  Fun and Engaging Videos
+                </h3>
+                <p class="home__reason-text">
+                  Mark's love for coding and teaching shines through in every
+                  video. His friendly and approachable voice makes learning a
+                  pleasure, and his world-class quality videos feature beautiful
+                  graphics, slides, and animations to help you stay focused and
+                  engaged.
+                </p>
+              </div>
+              <div class="home__reason-img-div">
+                <img src="./images/all2.jpg" class="home__reason-img" alt="" />
+              </div>
+            </div>
+            <div class="home__reason">
+              <div class="home__reason-img-div">
+                <img src="./images/why-expert.4b07f585.png" />
+              </div>
+              <div>
+                <h5 class="home__reason-title">MASTER A TOP CODER MINDSET</h5>
+                <h3 class="home__reason-second-title">
+                  Learn from an Industry Expert
+                </h3>
+                <p class="home__reason-text">
+                  With over two decades of experience in the tech industry, Mark
+                  is a true coding mastermind. He not only teaches you the hows
+                  and whys of coding, but also shares insider tips and tricks
+                  that you won't find anywhere else. You'll learn skills that
+                  would take years to acquire on the job, giving you a
+                  competitive edge in the industry.
+                </p>
+              </div>
+            </div>
+            <div class="home__reason">
+              <div>
+                <h5 class="home__reason-title">WORLD-CLASS QUALITY VIDEOS</h5>
+                <h3 class="home__reason-second-title">
+                  Engaging and Memorable Lessons
+                </h3>
+                <p class="home__reason-text">
+                  Mark is a perfectionist when it comes to video quality. Every
+                  video is designed to help you learn, remember, and apply the
+                  materials in the real world. With Mark's world-class quality
+                  videos, you'll be able to learn faster and retain more.
+                </p>
+              </div>
+              <div class="home__reason-img-div">
+                <img alt="" src="./images/why-engaging.0b5dcedd.png" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div id="top-selling-courses"></div> -->
+
+        <div class="home__top-selling">
+          <h2 class="home__top-selling-title">Top-selling Courses</h2>
+          <div class="home__top-selling-list-div">
+            <div class="home__top-selling-list" id="top-selling-courses">
+              <div id="content-preloader">
+                <div id="content-loader"></div>
+              </div>
+            </div>
+          </div>
+          <div class="home__view-all-div">
+            <a href="./courses.html"
+              ><button class="home__view-all-btn">View All Products</button></a
+            >
+            <a href="paths.html" class="home__view-paths"
+              >Not sure where to start? Check out our learning paths</a
+            >
+          </div>
+        </div>
+
+        <div class="home__subscription-banner"></div>
+      </div>
+
+      <footer class="footer__div" id="footer-placeholder"></footer>
+    </div>
+
+    <script>
+      function showPreloader() {
+        $("#content-preloader").show();
+      }
+
+      function hidePreloader() {
+        $("#content-preloader").fadeOut("slow", function () {
+          $(this).remove();
+        });
+      }
+
+      $("#nav-placeholder").load("nav.html");
+        $("#footer-placeholder").load("footer.html");
+      $(document).ready(function () {
+        $("#modal-placeholder").load("sub_modal.html");
+
+        function loadCourses() {
+          let urlf = "http://localhost:8000/course_store/top-selling-courses";
+
+          // Check if a category parameter is present in the URL
+          const urlParams = new URLSearchParams(window.location.search);
+          // const categorySlug = urlParams.get("category");
+
+          // if (categorySlug) {
+          //   urlf = `http://localhost:8000/course_store/courses/category/${categorySlug}/`;
+          // }
+
+          $.ajax({
+            url: `${urlf}`,
+
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+              // Clear the existing course list before appending new courses
+              $(".course-list").empty();
+
+              for (let course of data) {
+                console.log(course);
+                $("#top-selling-courses")
+                  .append(`        <a class="home__top-seller" href="./course.html?id=${course.id}" >
+              <img
+                class="home__top-seller-img"
+                src="${course.image}"
+                role="presentation"
+              />
+              <div style="padding: 5% 5%;">
+                <h3 class="home__top-seller-title">${course.name}</h3>
+                <p class="home__top-seller-desc">
+                  ${course.summary}
+                </p>
+              </div>
+            </a> `);
+              }
+
+              hidePreloader();
+            },
+            error: function (error) {
+              if (error.status == 404) {
+                return;
+              }
+            },
+          });
+        }
+        loadCourses();
+      });
+    </script>
+  </body>
+</html>

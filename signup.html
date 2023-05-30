@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Code Avenue</title>
+    <style>
+      .login__form {
+        /* margin: 0 auto; */
+        max-width: 340px;
+        width: 90%;
+        /* width: 330px; */
+        background-color: #fff;
+        padding: 1.5rem;
+        /* border-radius: 5px; */
+        /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+      }
+
+      .login__title {
+        font-weight: 500;
+        color: rgb(16, 34, 71);
+        margin: 1rem 0;
+      }
+
+      .login__lbl {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 16px;
+        color: #333;
+      }
+
+      .login__div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      input[type="email"],
+      input[type="text"],
+      input[type="password"] {
+        display: block;
+        width: 100%;
+        height: 40px;
+        font-size: 16px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+
+      .login__submit-btn {
+        display: block;
+        width: 100%;
+        margin: 1.5rem 0;
+        height: 40px;
+        font-size: 16px;
+        color: #fff;
+        border: none;
+        background-color: rgb(212, 79, 110);
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      .login__submit-btn:hover {
+        background-color: #333;
+      }
+
+      #google-login {
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      #google-button {
+        display: inline-block;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px 20px;
+        color: #333;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      #google-button:hover {
+        background-color: #f8f8f8;
+      }
+
+      .login__alternative {
+        font-size: 0.9rem;
+      }
+      .login__alternative:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="navbar__div" id="nav-placeholder"></div>
+    <div class="login__div">
+      <form class="login__form" id="signup-form">
+        <h2 class="login__title">Create your account</h2>
+
+        <label class="login__lbl" for="first_name">First Name</label>
+        <input type="text" name="first_name" required />
+
+        <label class="login__lbl" for="last_name">Last Name</label>
+        <input type="text" name="last_name" required />
+        <label class="login__lbl" for="username" >Username</label>
+        <input type="text" name="username" required  />
+
+        <label class="login__lbl" for="email">Email</label>
+        <input type="email" name="email" required />
+
+        <label class="login__lbl" for="password">Password</label>
+        <input type="password" name="password" required />
+
+        <input class="login__submit-btn" type="submit" value="Sign up" />
+
+        <a class="login__alternative" href="./login.html"
+          >Already got an account? Login</a
+        >
+      </form>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $("#nav-placeholder").load("nav.html");
+        $("#footer-placeholder").load("footer.html");
+
+        // Function to validate email format
+        function validateEmail(email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+        }
+
+        $("#signup-form").submit(function (event) {
+          event.preventDefault(); // Prevent the form from submitting normally
+
+          // Get the form data
+          const firstName = $("input[name=first_name]").val();
+          const lastName = $("input[name=last_name]").val();
+          const email = $("input[name=email]").val();
+          const password = $("input[name=password]").val();
+          const username = $("input[name=username]").val();
+
+          // Perform form validation
+          if (firstName.trim() === "") {
+            alert("Please enter your first name.");
+            return;
+          }
+
+          if (lastName.trim() === "") {
+            alert("Please enter your last name.");
+            return;
+          }
+
+          if (email.trim() === "") {
+            alert("Please enter your email address.");
+            return;
+          }
+          if (username.trim() === "") {
+            alert("Please enter your username.");
+            return;
+          }
+
+          if (!validateEmail(email)) {
+            alert("Please enter a valid email address.");
+            return;
+          }
+
+          if (password.trim() === "") {
+            alert("Please enter a password.");
+            return;
+          }
+
+          // Send the form data using AJAX
+          $.ajax({
+            url: "http://localhost:8000/signup/", // The URL to your Django view
+            type: "POST",
+            data: {
+              first_name: firstName,
+              last_name: lastName,
+              email: email,
+              password: password,
+              username: username,
+            },
+            success: function (response) {
+              console.log(response);
+              window.location.href = "./index.html";
+            },
+            error: function (xhr, status, error) {
+              console.error(error, xhr);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

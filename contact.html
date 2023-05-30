@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Code Avenue</title>
+  </head>
+  <body>
+    <div class="navbar__div" id="nav-placeholder"></div>
+    <div class="contact__div">
+      <h3 class="contact__title">We would love to hear from you</h3>
+      <p class="contact__issue-direct">
+        For technical questions, please post your questions on our forum where
+        you can get help from fellow students.
+      </p>
+      <p class="contact__issue-direct">
+        For course suggestions and career advice, check out Mark's learning
+        paths.
+      </p>
+      <p class="contact__issue-direct">
+        For any other enquires, fill out the form below and a team member will
+        get back to you.
+      </p>
+
+      <form action="" class="contact__form">
+        <div class="contact__form-div">
+          <label for="email">Your email</label>
+          <input class="contact__form-email-box" type="text" name="email" />
+
+          <label for="message">Your message</label>
+          <textarea
+            class="contact__form-message-box"
+            type="text"
+            name="message"
+          ></textarea>
+        </div>
+        <button class="contact__form-button">Send</button>
+      </form>
+    </div>
+    <footer class="footer__div" id="footer-placeholder"></footer>
+    <script>
+      $(document).ready(function () {
+        $("#nav-placeholder").load("nav.html");
+        $("#footer-placeholder").load("footer.html");
+
+        $(".contact__form-button").click(function (e) {
+          e.preventDefault();
+          var email = $(".contact__form-email-box").val();
+          var message = $(".contact__form-message-box").val();
+
+          // Retrieve token from local storage
+          var token = localStorage.getItem("auth_token");
+
+          $.ajax({
+            url: "http://127.0.0.1:8000/contact/",
+            type: "POST",
+            data: {
+              email: email,
+              message: message,
+            },
+            headers: {
+              Authorization: "Token " + token,
+            },
+            success: function () {
+              alert("Your message has been sent!");
+            },
+            error: function () {
+              alert("There was an error sending your message.");
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

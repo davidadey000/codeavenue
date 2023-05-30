@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+      .wrapper {
+        display: flex;
+        /* height: 100vh; */
+      }
+
+      .side-nav {
+        height: 100vh;
+        display: none;
+        position: fixed;
+        background-color: rgb(250, 250, 250);
+        top: 0;
+        left: 0;
+        width: 25%;
+        padding: 7.5% 0;
+      }
+
+      .side-nav ul {
+        width: 100%;
+        list-style: none;
+      }
+      .side-nav ul li {
+        padding: 5% 7.5%;
+      }
+
+      .content {
+        width: 100%;
+        padding: 0 5%;
+        background-color: white;
+        padding-bottom: 5%;
+      }
+      /* The Modal (background) */
+      /* The Modal (background) */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      /* Modal Content/Box */
+      .modal-content {
+        background-color: #fefefe;
+        margin: 40% auto; /* Adjust the margin for responsiveness */
+        padding: 20px;
+        border: 1px solid #888;
+        max-height: 90vh; /* Limit the height for smaller screens */
+        width: 90%; /* Adjust the width for responsiveness */
+        max-width: 500px; /* Set a maximum width */
+      }
+
+      /* The Close Button */
+      .close {
+        color: #aaa;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+      }
+
+      /* Adjust the form layout */
+      .modal-form {
+        margin-top: 20px;
+      }
+
+      .modal-form input,
+      .modal-form button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      .modal-form button {
+        background-color: rgb(212, 79, 110);
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      .modal-form button:hover {
+        background-color: #45a049;
+      }
+
+      .profile__billing-form {
+        border-radius: 5px;
+        background-color: white;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        border: 1px solid rgb(0, 0, 0, 0.1);
+      }
+      .profile__billing-form p {
+        font-weight: 500;
+      }
+      .profile__billing-form input[type="text"],
+      .profile__billing-form select {
+        width: 100%;
+        font-size: 1rem;
+        padding: 10px 0;
+        border: 1px solid grey;
+        border-top: none;
+        letter-spacing: 0;
+        border-left: none;
+        border-right: none;
+      }
+      .profile__billing-form input[type="text"]:focus,
+      .profile__billing-form select:focus {
+        outline: none;
+      }
+
+      .profile__edit-btn {
+        cursor: pointer;
+      }
+      @media screen and (min-width: 768px) {
+        .profile__details-box,
+        .profile__billing-address-form {
+          width: 75%;
+        }
+      }
+      @media screen and (min-width: 1024px) {
+        .side-nav {
+          display: block;
+        }
+        .content {
+          margin-left: 25%;
+          padding: 0 10%;
+          padding-bottom: 5%;
+          background: linear-gradient(
+            110deg,
+            rgb(243, 243, 243) 60%,
+            rgb(238, 238, 238) 60%
+          );
+        }
+        .profile__details-box,
+        .profile__billing-address-form {
+          width: 60%;
+        }
+
+        .modal-content {
+          border-radius: 5px;
+          margin: 10% auto;
+        }
+      }
+    </style>
+    <title>Code Avenue</title>
+  </head>
+  <body>
+    <div class="navbar__div" id="nav-placeholder"></div>
+    <div id="preloader">
+      <div id="loader"></div>
+    </div>
+    <div class="wrapper">
+      <nav class="side-nav">
+        <ul>
+          <li>
+            <a href="#prfile">Edit Profile</a>
+          </li>
+          <hr />
+          <li>
+            <a href="#billing-address">Billing Address</a>
+          </li>
+          <hr />
+          <li>
+            <a href="#">Manage Subscriptions</a>
+          </li>
+          <hr />
+          <li>
+            <p id="goat">Logout</p>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="content">
+        <!-- Your scrollable content here -->
+        <h1
+          id="prfile"
+          style="padding: 5% 0; font-weight: 500; color: rgb(68, 68, 112)"
+        >
+          Profile
+        </h1>
+        <div>
+          <div
+            class="profile__details-box"
+            style="
+              border: 1px solid rgb(0, 0, 0, 0.1);
+              border-radius: 10px;
+              display: flex;
+              gap: 1rem;
+              flex-direction: column;
+              padding: 20px;
+              background-color: white;
+            "
+          >
+            <div style="display: flex; justify-content: space-between">
+              <div style="display: flex; flex-direction: column">
+                <h4 style="font-weight: 400">Full Name</h4>
+                <p
+                  id="full-name"
+                  style="color: rgb(110, 110, 110); letter-spacing: 0"
+                >
+                  David Adediji
+                </p>
+              </div>
+              <p
+                class="profile__edit-btn"
+                style="
+                  color: rgb(51, 17, 59);
+                  font-weight: 500;
+                  text-decoration: underline;
+                "
+                id="edit-name"
+              >
+                Edit
+              </p>
+            </div>
+            <hr />
+            <div style="display: flex; justify-content: space-between">
+              <div style="display: flex; flex-direction: column">
+                <h4 style="font-weight: 400">Email address</h4>
+                <p
+                  id="email"
+                  style="color: rgb(110, 110, 110); letter-spacing: 0"
+                >
+                  davidadey000@gmail.com
+                </p>
+              </div>
+              <p
+                class="profile__edit-btn"
+                style="
+                  color: rgb(51, 17, 59);
+                  font-weight: 500;
+                  text-decoration: underline;
+                "
+                id="edit-email"
+              >
+                Edit
+              </p>
+            </div>
+            <hr />
+            <div style="display: flex; justify-content: space-between">
+              <div style="display: flex; flex-direction: column">
+                <h4 style="font-weight: 400">Password</h4>
+                <p style="color: rgb(110, 110, 110)">********</p>
+              </div>
+              <div style="display: flex">
+                <p
+                  class="profile__edit-btn"
+                  s
+                  style="
+                    color: rgb(51, 17, 59);
+                    font-weight: 500;
+                    text-decoration: underline;
+                  "
+                  id="edit-password"
+                >
+                  Edit
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h1
+          id="billing-address"
+          style="padding: 5% 0; font-weight: 500; color: rgb(68, 68, 112)"
+        >
+          Billing Address
+        </h1>
+        <div>
+          <div action="" class="profile__billing-address-form">
+            <div class="profile__billing-form">
+              <p>Country</p>
+              <select name="country" id="" disabled>
+                <option value="Nigeria">Nigeria</option>
+                <option value="United States">United States</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Canada">Canada</option>
+                <option value="India">India</option>
+              </select>
+
+              <p>Street Address</p>
+              <input type="text" id="street-address" readonly />
+              <p>City</p>
+              <input type="text" id="city" readonly />
+              <p>Postal Code</p>
+              <input type="text" id="postal-code" readonly />
+              <button
+                id="edit-billing-address"
+                style="
+                  background-color: rgb(212, 79, 110);
+                  padding: 10px;
+                  border-radius: 5px;
+                  margin-top: 35px;
+                  font-size: 1rem;
+                  color: white;
+                "
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <h3>Edit Profile</h3>
+            <span class="close">&times;</span>
+          </div>
+          <div class="modal-form"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <footer class="footer__div" id="footer-placeholder"></footer> -->
+    <script>
+      $("#goat").on("click", function () {
+        // Remove the auth token from the local storage
+        localStorage.removeItem("auth_token");
+        // Redirect the user to index.html
+        window.location.href = "index.html";
+      });
+      function showPreloader() {
+        $("#preloader").show();
+      }
+
+      function hidePreloader() {
+        $("#preloader").fadeOut("slow", function () {
+          $(this).remove();
+        });
+      }
+      $("#nav-placeholder").load("nav.html");
+      $("#footer-placeholder").load("footer.html");
+      $(document).ready(function () {
+        // your existing code here...
+        $('a[href^="#"]').on("click", function (event) {
+          event.preventDefault();
+
+          var target = $(this).attr("href");
+          var offset = 60;
+
+          $("html, body").animate(
+            {
+              scrollTop: $(target).offset().top - offset,
+            },
+            "fast"
+          );
+        });
+        const authToken = localStorage.getItem("auth_token");
+
+        $("#edit-billing-address").on("click", function () {
+          var buttonText = $(this).text();
+
+          console.log("l" + buttonText);
+
+          if (buttonText === "Edit") {
+            // Enable the disabled elements
+            $("select[name='country']").prop("disabled", false);
+            $("#street-address").prop("readonly", false);
+            $("#city").prop("readonly", false);
+            $("#postal-code").prop("readonly", false);
+            $(this).text("Save");
+          } else if (buttonText === "Save") {
+            // Retrieve new billing address information from input fields
+            const country = $("select[name='country']").val();
+            const streetAddress = $("#street-address").val();
+            const city = $("#city").val();
+            const postalCode = $("#postal-code").val();
+
+            // Perform the AJAX request to update the billing address
+            const authToken = localStorage.getItem("auth_token");
+            $.ajax({
+              url: "http://localhost:8000/course_store/billing-address-create/",
+              type: "POST",
+              headers: {
+                Authorization: `Token ${authToken}`,
+              },
+              data: {
+                country: country,
+                street_address: streetAddress,
+                city: city,
+                postal_code: postalCode,
+              },
+              success: function () {
+                // Disable the elements again
+                $("select[name='country']").prop("disabled", true);
+                $("#street-address").prop("readonly", true);
+                $("#city").prop("readonly", true);
+                $("#postal-code").prop("readonly", true);
+                $("#edit-billing-address").text("Edit");
+
+                alert("Billing address updated successfully.");
+              },
+              error: function () {
+                // Handle error
+                alert("Failed to update billing address.");
+              },
+            });
+          }
+        });
+
+        $.ajax({
+          url: "http://localhost:8000/users/",
+          type: "GET",
+          headers: { Authorization: `Token ${authToken}` },
+          success: function (data) {
+            $("#full-name").text(`${data.first_name} ${data.last_name}`);
+            $("#email").text(`${data.email}`);
+            $("#password").text(`${data.password}`);
+            hidePreloader();
+          },
+        });
+
+        $.ajax({
+          url: "http://localhost:8000/course_store/billing-address/",
+          type: "GET",
+          headers: { Authorization: `Token ${authToken}` },
+          success: function (data) {
+            $("#street-address").val(data.street_address);
+            $("#city").val(data.city);
+            $("#country").val(data.country);
+            $("#postal-code").val(data.postal_code);
+            hidePreloader();
+          },
+        });
+        // Get the modal
+        var modal = $("#myModal");
+
+        // Get the button that opens the modal
+        var btn = $("edit").eq(0);
+
+        // Get the <span> element that closes the modal
+        var span = $(".close").eq(0);
+
+        // When the user clicks the button, open the modal
+        btn.on("click", function () {
+          modal.css("display", "block");
+        });
+
+        // When the user clicks on <span> (x), close the modal
+        span.on("click", function () {
+          modal.css("display", "none");
+        });
+
+        // When the user clicks anywhere outside of the modal, close it
+        $(window).on("click", function (event) {
+          if (event.target == modal[0]) {
+            modal.css("display", "none");
+          }
+        });
+
+        // Get the edit buttons for name and email
+        var editNameBtn = $("#edit-name");
+        var editEmailBtn = $("#edit-email");
+        var editPasswordBtn = $("#edit-password");
+
+        // Add the form to the modal
+        var modalForm = $(".modal-form");
+        // When the user clicks the edit button for name, open the modal with the name form
+        editNameBtn.on("click", function () {
+          // Create the form element for editing the name
+          var form = $("<div></div>");
+          var input1 = $(
+            "<input type='text' name='name' placeholder='Update first name'  id='first-name-input'>"
+          );
+          var input2 = $(
+            "<input type='text' name='name' placeholder='Update last name'  id='last-name-input'>"
+          );
+
+          var submit = $("<button id='save-name-btn'>Save</button>");
+          form.append(input1);
+          form.append(input2);
+          form.append(submit);
+
+          modalForm.empty(); // remove any existing content
+          modalForm.append(form);
+          // Open the modal
+          modal.css("display", "block");
+          console.log("goat1");
+
+          $("#save-name-btn").on("click", function () {
+            // Retrieve new name from input field
+            const firstName = $("#first-name-input").val();
+            const lastName = $("#last-name-input").val();
+
+            const authToken = localStorage.getItem("auth_token");
+            console.log("got1");
+            // Send POST request to API endpoint with new name
+            $.ajax({
+              url: "http://localhost:8000/users/update/",
+              type: "PUT",
+              headers: {
+                Authorization: `Token ${authToken}`,
+              },
+              data: { first_name: firstName, last_name: lastName },
+              success: function () {
+                console.log("got");
+              },
+              error: function () {
+                // Handle error
+                alert("Failed to update name.");
+              },
+            });
+          });
+        });
+        $("#save-billing-btn").on("click", function () {
+          // Retrieve new name from input field
+          const firstName = $("#first-name-input").val();
+          const lastName = $("#last-name-input").val();
+
+          const authToken = localStorage.getItem("auth_token");
+          console.log("got1");
+          // Send POST request to API endpoint with new name
+          $.ajax({
+            url: "http://localhost:8000/users/update/",
+            type: "PUT",
+            headers: {
+              Authorization: `Token ${authToken}`,
+            },
+            data: { first_name: firstName, last_name: lastName },
+            success: function () {
+              console.log("got");
+            },
+            error: function () {
+              // Handle error
+              alert("Failed to update name.");
+            },
+          });
+        });
+
+        editPasswordBtn.on("click", function () {
+          // Create the form element for editing the name
+          var form = $("<div></div>");
+          var input1 = $(
+            "<input type='text' name='name' placeholder='Update Password'  id='password-input'>"
+          );
+
+          var submit = $("<button id='save-pass-btn'>Save</button>");
+          form.append(input1);
+          form.append(submit);
+
+          modalForm.empty(); // remove any existing content
+          modalForm.append(form);
+          // Open the modal
+          modal.css("display", "block");
+          console.log("goat1");
+
+          $("#save-pass-btn").on("click", function () {
+            // Retrieve new name from input field
+            const Password = $("#password-input").val();
+
+            const authToken = localStorage.getItem("auth_token");
+            console.log("got1");
+            // Send POST request to API endpoint with new name
+            $.ajax({
+              url: "http://localhost:8000/users/update/",
+              type: "PUT",
+              headers: {
+                Authorization: `Token ${authToken}`,
+              },
+              data: { password: password },
+              success: function () {
+                console.log("got");
+              },
+              error: function () {
+                // Handle error
+                alert("Failed to update password.");
+              },
+            });
+          });
+        });
+
+        // When the user clicks the edit button for email, open the modal with the email form
+        editEmailBtn.on("click", function () {
+          // Create the form element for editing the email
+          var form = $("<form></form>");
+          var input = $(
+            "<input type='email' name='email' placeholder='Enter new email' id='email-input'>"
+          );
+          var submit = $(
+            "<input type='submit' value='Save' id='save-email-btn'>"
+          );
+          form.append(input);
+          form.append(submit);
+
+          modalForm.empty(); // remove any existing content
+          modalForm.append(form);
+
+          // Open the modal
+          modal.css("display", "block");
+
+          $("#save-email-btn").on("click", function () {
+            // Retrieve new name from input field
+            const email = $("#email-input").val();
+
+            // const authToken = localStorage.getItem("auth_token");
+            console.log("got3");
+            // Send POST request to API endpoint with new name
+            $.ajax({
+              url: "http://localhost:8000/users/update/",
+              type: "PUT",
+              headers: {
+                Authorization: `Token ${authToken}`,
+              },
+              data: { email: email },
+              success: function () {
+                console.log("got");
+              },
+              error: function () {
+                // Handle error
+                alert("Failed to update name.");
+              },
+            });
+          });
+        });
+
+        // your existing code here...
+      });
+    </script>
+  </body>
+</html>

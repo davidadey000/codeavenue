@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Code Avenue</title>
+    <style>   pre {
+      padding: 20px;
+      background-color: rgb(58, 58, 58);
+      border-radius: 5px;
+    }
+
+    code {
+      overflow-x: auto;
+      font-family: monospace;
+      display: inline;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    pre > code {
+      color: white;
+    }
+</style>
+  </head>
+  <body>
+    <div class="navbar__div" id="nav-placeholder"></div>
+    <div id="preloader">
+      <div id="loader"></div>
+    </div>
+
+    <div class="blog__div">
+      <div>
+        <div class="blog__posts-div" id="posts">
+          <div class="blog__post-group"></div>
+        </div>
+        <div class="blog__load-more-div">
+          <button class="blog__load-more" id="load-more">Load More</button>
+          <button class="blog__load-more blog__scroll-top" id="scroll-to-top">
+            Scroll to top
+          </button>
+        </div>
+      </div>
+      <div class="blog__right-bar">
+        <div>
+          <div class="blog__connect">
+            <h2>Connect with Me</h2>
+            <div class="blog__post-share-icons">
+              <a href="https://www.instagram.com/rideavenue/"
+                ><img src="images/instagram.png" class="blog__post-share-icon"
+              /></a>
+              <a href="https://www.facebook.com/your_username"
+                ><img src="images/facebook.png" class="blog__post-share-icon"
+              /></a>
+              <a href="https://twitter.com/davidadediji1?lang=en"
+                ><img src="images/twitter.png" class="blog__post-share-icon"
+              /></a>
+              <a href="https://www.linkedin.com/in/david-adediji-a1bb35245/"
+                ><img src="images/linkedin2.png" class="blog__post-share-icon"
+              /></a>
+            </div>
+          </div>
+
+          <div class="blog__categories">
+            <h2>Categories</h2>
+            <ul class="blog__category-list"></ul>
+          </div>
+         
+        </div>
+        <div style="height: 75px; background: linear-gradient(
+          180deg,
+         black, grey
+        );">
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer__div" id="footer-placeholder"></footer>
+    <script>
+      function showPreloader() {
+        $("#preloader").show();
+      }
+
+      function hidePreloader() {
+        $("#preloader").fadeOut("slow", function () {
+          $(this).remove();
+        });
+      }
+
+      $(document).ready(function () {
+        $("#scroll-to-top").hide();
+        $("#nav-placeholder").load("./nav.html");
+        $("#footer-placeholder").load("./footer.html");
+
+        let page = 1;
+        let limit = 2; // Change this to set the number of posts to display per page
+        $.ajax({
+          url: `http://127.0.0.1:8000/blog/categories/`,
+          type: "GET",
+          dataType: "json",
+          success: function (data) {
+            // hidePreloader();
+            for (let category of data) {
+              $(".blog__category-list").append(
+                `<li><a href="./blog.html?category=${category.name}" class="blog__category-link">${category.name}</a></li>`
+              );
+            }
+          },
+        });
+
+        // Use the ID to fetch the post data from an API or database
+        const authToken = localStorage.getItem("auth_token");
+        console.log(authToken);
+        function loadPosts(scrollToBottom = false) {
+          let urlf = "http://127.0.0.1:8000/blog/posts/";
+
+          // Check if a category parameter is present in the URL
+          const urlParams = new URLSearchParams(window.location.search);
+          const categorySlug = urlParams.get("category");
+
+          let url = categorySlug ? `${urlf}category/${categorySlug}/` : urlf;
+
+          console.log(url);
+          $.ajax({
+            url: `${url}?page=${page}&limit=${limit}`,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+              hidePreloader();
+
+              for (let post of data.results) {
+                // console.log(post.slug);
+                const isoDateString = post.created_on;
+                const date = new Date(isoDateString);
+
+                const options = {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                };
+                const formattedDate = date.toLocaleDateString("en-US", options);
+
+                console.log(formattedDate); // Output: April 16, 2023
+
+                $(".blog__post-group:last").append(`
+                <div class="blog__post">
+  <div class="blog__post-details">
+    <p class="blog__post-date">${formattedDate}</p>
+    <a
+      href="./post.html?slug=${post.slug}#post-comments"
+      class="blog__post-comments"
+    >
+      <i class="material-icons">comment</i>
+      <small class="blog__post-comments-label">COMMENTS</small>
+    </a>
+  </div>
+  <a href="./post.html?slug=${post.slug}">
+    <h1>${post.title}</h1>
+    <div class="blog__post-content">${post.excerpt}</div>
+  </a>
+
+  <div class="blog__post-share"></div>
+  <div class="blog__post-category"></div>
+  <hr class="blog__post-bar" />
+</div>
+
+      `);
+                let shareSection = `
+   
+    <small class="blog__post-share-label">Share this:</small>
+    <div class="blog__post-share-icons">
+      <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        window.location.href
+      )}" target="_blank"><img src="images/facebook.png" class="blog__post-share-icon"/></a>
+      <a href="https://twitter.com/share?url=${encodeURIComponent(
+        window.location.href
+      )}" target="_blank"><img src="images/twitter.png" class="blog__post-share-icon"/></a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+        window.location.href
+      )}" target="_blank"><img src="images/linkedin.png" class="blog__post-share-icon"/></a>
+    </div>
+`;
+
+                $(".blog__post-share:last").append(shareSection);
+              }
+              page += 1;
+              // console.log(page);
+              if (scrollToBottom) {
+                $("html, body").animate(
+                  {
+                    scrollTop: $(".blog__post-group:last").offset().top - 80,
+                  },
+                 "slow"
+                );
+              }
+
+              // // Hide the load more button and show the scroll to top button if all posts have been loaded
+              // if (data.results.length < limit) {
+              //   $("#load-more").hide();
+              //   $("#scroll-to-top").show();
+              //   allPostsLoaded = true;
+              // }
+            },
+            error: function (error) {
+              console.log(error);
+              if (error.status == 404) {
+                $("#load-more").hide();
+                $("#scroll-to-top").show();
+                // allPostsLoaded = true;
+                return;
+              }
+            },
+          });
+        }
+
+        $("#scroll-to-top").click(function () {
+          $("html, body").animate({ scrollTop: 0 }, "slow");
+        });
+
+        loadPosts(); // Load the first group of posts when the page loads
+
+        $("#load-more").click(function () {
+          $("#posts").append(`<div class="blog__post-group"></div>`);
+          loadPosts(true); // Pass `true` to scroll to the bottom of the page
+        });
+      });
+    </script>
+  </body>
+</html>

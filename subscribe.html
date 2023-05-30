@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Code Avenue</title>
+  </head>
+  <body>
+    <div class="navbar__div" id="nav-placeholder"></div>
+    <div id="preloader">
+      <div id="loader"></div>
+    </div>
+    <div class="order__div">
+      <div class="order__right-div">
+        <h3 class="order__summary-title">Subscription Summary</h3>
+        <div class="order__summary-div" id="order-summary">
+          <div class="order__summary-header">
+            <img class="order__summary-img" src="" name="course-image" alt="" />
+            <h1 class="order__summary-name course-name"></h1>
+          </div>
+          <div class="order__summary-details">
+            <p class="course-name"></p>
+            <h4 class="order__summary-detail2" id="course-price"></h4>
+            <p>Discount</p>
+            <p class="order__summary-detail2" id="price-discount"></p>
+            <h4>Billed Today</h4>
+            <h4 id="billed-today" class="order__summary-detail2"></h4>
+          </div>
+          <div class="order__footer">
+            <div class="order__footer-btn-div">
+              <button class="order__footer-btn" id="subscribe-now">
+                Subscribe Now
+              </button>
+            </div>
+            <div class="order__footer-div">
+              <i class="material-icons">lock</i
+              ><small class="order__footer-text"
+                >All transactions are secure and encrypted.</small
+              >
+            </div>
+          </div>
+        </div>
+        <div class="order__right-div-p">
+          <p class="order__right-div-text">
+            By completing this purchase, I agree to Code Avenue's Terms of Use &
+            Privacy Policy, and the Terms of Use & Privacy Policy of the course
+            platform.
+          </p>
+        </div>
+      </div>
+      <div class="order__content">
+        <div class="order__get-started">
+          <h3 class="order__get-started-title">Get Started</h3>
+          <div>
+            <p>
+              Providing your email allows us to send you everything you need for
+              your purchase. Already have an account?
+            </p>
+          </div>
+          <div class="order__get-started-form" id="get-started-form">
+            <p>Email Address</p>
+            <input type="email" class="order__get-started-email" />
+            <div class="order__get-started-footer">
+              <input type="checkbox" name="" id="" />
+              <small>
+                Yes, Code Avenue can email me with promotions and news.
+                (optional)
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="order__payment" id="payment-form">
+          <h3 class="order__payment-title">Payment Information</h3>
+          <div class="order__payment-header">
+            <i class="material-icons">lock</i>
+            <p>All transactions are secure and encrypted.</p>
+          </div>
+
+          <div class="order__payment-form">
+            <p>Name on Card</p>
+            <input type="text" name="card_holder" value="David Adediji" />
+            <p>Card number</p>
+            <input type="text" name="card_number" value="3825963219603276" />
+            <div class="order__payment-form-flex">
+              <div>
+                <p>Expiration Date</p>
+                <input type="month" name="card_expiry_date" value="2023-05" />
+              </div>
+
+              <div>
+                <p>CVC</p>
+                <input type="text" name="cvc" value="634" />
+              </div>
+            </div>
+            <div class="order__payment-footer">
+              <input type="checkbox" name="" id="" />
+              <small> Save my payment info for future purposes; </small>
+            </div>
+          </div>
+        </div>
+        <div class="order__billing" id="billing-form">
+          <h3 class="order__billing-title">Billing Address</h3>
+
+          <div class="order__billing-form">
+            <p>Country</p>
+            <select name="country" id="">
+              <option value="Nigeria">Nigeria</option>
+              <option value="United States">United States</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="Canada">Canada</option>
+              <option value="India">India</option>
+            </select>
+
+            <p>Street Address</p>
+            <input type="text" />
+            <p>Street Address 2 (Optional)</p>
+            <input type="text" />
+            <p>City</p>
+            <input type="text" />
+            <p>Postal Code</p>
+            <input type="text" />
+            <!-- <div class="order__billing-footer">
+              <input type="checkbox" name="" id="" />
+              <small> Delivery Address same as billing. </small>
+            </div> -->
+          </div>
+        </div>
+        <div class="order__reviews">
+          <h3 class="order__reviews-title">See what others have to say..</h3>
+          <div
+            style="display: flex; flex-direction: column; gap: 2rem"
+            id="reviews"
+          >
+            <div class="order__reviews-content">
+              <div class="order__reviewer">
+                <img class="order__reviewer-img" src="" alt="" />
+              </div>
+              <div>
+                <p class="order__review">
+                  Mark, let me tell you I have been winning the code
+                  competitions here in India and excelling in my work and it
+                  gives me a great proud to say that you are my teacher. I have
+                  purchased every course you have uploaded.
+                </p>
+                <p>— Markood Abiola</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="order__guarantee">
+          <img
+            src="https://assets.teachablecdn.com/icons/checkout-badge-1.svg"
+            class="order__guarantee-img"
+          />
+        </div>
+      </div>
+    </div>
+    <script>
+      function showPreloader() {
+        $("#preloader").show();
+      }
+
+      function hidePreloader() {
+        $("#preloader").fadeOut("slow", function () {
+          $(this).remove();
+        });
+      }
+
+      $(document).ready(function () {
+        $("#nav-placeholder").load("nav.html");
+        $("#footer-placeholder").load("footer.html");
+        // Get the ID of the post from the query string
+        const urlParams = new URLSearchParams(window.location.search);
+        let courseId = 12;
+        let subscriptionId = urlParams.get("id");
+        console.log(subscriptionId);
+        let coursePrice = "";
+        // Function to determine the subscription duration based on the subscriptionId
+        function getSubscriptionDuration(id) {
+          if (id == 1) {
+            return "annual";
+          } else if (id == 2) {
+            return "monthly";
+          }
+          // Default to monthly if subscriptionId is not valid
+          return "monthly";
+        }
+        hidePreloader();
+
+        // Declare the courseId variable outside the success callback function
+        // $.ajax({
+        //   url: `http://localhost:8000/course_store/courses/${courseId}/reviews/`,
+        //   type: "GET",
+        //   dataType: "json",
+        //   success: function (data) {
+        //     for (review of data) {
+        //       $("#reviews").append(`   <div class="order__reviews-content">
+        //       <div class="order__reviewer">
+        //         <img class="order__reviewer-img" src="" alt="" />
+        //       </div>
+        //       <div>
+        //         <p class="order__review">
+        //         ${review.content}
+        //         </p>
+        //         <p>— ${review.user}</p>
+        //       </div>
+        //     </div>`);
+        //     }
+        //     hidePreloader();
+        //   },
+        // });
+
+        $("#subscribe-now").click(function () {
+          // Validate email address
+          let email = $(".order__get-started-email").val();
+          // if (!validateEmail(email)) {
+          //   alert("Please enter a valid email address.");
+          //   return false;
+          // }
+
+          // Validate card details
+          // Validate card details
+          let cardName = $('input[name="card_holder"]').val();
+          let cardNumber = $('input[name="card_number"]').val();
+          let cardExp = $('input[name="card_expiry_date"]').val();
+          let cardCvc = $('input[name="cvc"]').val();
+
+          if (
+            cardName.trim() === "" ||
+            cardNumber.trim() === "" ||
+            cardExp.trim() === "" ||
+            cardCvc.trim() === ""
+          ) {
+            alert(
+              "Please fill in all the required fields for payment information."
+            );
+            return false;
+          }
+
+          // Validate billing details
+          let country = $(".order__billing-form select").val();
+          let streetAddr = $(
+            '.order__billing-form input[type="text"]:eq(0)'
+          ).val();
+          let streetAddr2 = $(
+            '.order__billing-form input[type="text"]:eq(1)'
+          ).val();
+          let city = $('.order__billing-form input[type="text"]:eq(2)').val();
+          let postalCode = $(
+            '.order__billing-form input[type="text"]:eq(3)'
+          ).val();
+
+          if (
+            country.trim() === "" ||
+            streetAddr.trim() === "" ||
+            city.trim() === "" ||
+            postalCode.trim() === ""
+          ) {
+            alert(
+              "Please fill in all the required fields for billing address."
+            );
+            return false;
+          }
+
+          // All fields are valid, proceed with purchase
+          // alert("Thank you for your purchase!");
+          const authToken = localStorage.getItem("auth_token");
+          if (!authToken) {
+            // Redirect to login page
+            sessionStorage.setItem("redirectUrl", window.location.href);
+            window.location.href = "/login.html";
+            return false;
+          } else {
+            async function processOrder() {
+              try {
+                const billingAddress = {
+                  street_address: streetAddr,
+                  city: city,
+                  country: country,
+                  postal_code: postalCode,
+                };
+                let orderData = {
+                  duration: getSubscriptionDuration(subscriptionId),
+                };
+
+                console.log(getSubscriptionDuration(subscriptionId))
+
+                // make the first AJAX request to create the billing address
+                const billingAddressResponse = await fetch(
+                  "http://localhost:8000/course_store/billing-address-create/",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Token ${authToken}`,
+                    },
+                    body: JSON.stringify(billingAddress),
+                  }
+                );
+
+                // check the response from the server and extract the ID of the billing address
+                if (!billingAddressResponse.ok) {
+                  throw new Error(
+                    `Failed to create billing address: ${billingAddressResponse.statusText}`
+                  );
+                }
+                const billingAddressData = await billingAddressResponse.json();
+                const billingAddressId = billingAddressData.id;
+
+
+                // make the second AJAX request to create the order
+                const orderResponse = await fetch(
+                  "http://localhost:8000/course_store/subscription-order/",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Token ${authToken}`,
+                    },
+                    body: JSON.stringify({
+                      ...orderData,
+                      ba: billingAddressId,
+                    }),
+                  }
+                );
+
+                // check the response from the server and extract the ID of the order
+                if (!orderResponse.ok) {
+                  throw new Error(
+                    `Failed to create subscription order: ${orderResponse.statusText}`
+                  );
+                }
+                orderData = await orderResponse.json();
+                const orderId = orderData.id;
+
+                // make the third AJAX request to create the payment
+                // Parse the card expiry date string into a Date object
+                const cardExpDate = new Date(cardExp + "-01");
+
+                // Add one day to the card expiry date
+                cardExpDate.setDate(cardExpDate.getDate() + 1);
+
+                // Convert the date object back to a string in YYYY-MM-DD format
+                const cardExpWithDay = cardExpDate.toISOString().slice(0, 10);
+
+                // Pass the updated card expiry date in the request body
+                const paymentResponse = await fetch(
+                  "http://localhost:8000/course_store/subscription-payments/",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Token ${authToken}`,
+                    },
+                    body: JSON.stringify({
+                      order: orderId,
+                      card_holder: cardName,
+                      card_number: cardNumber,
+                      card_expiry_date: cardExpWithDay,
+                      cvc: cardCvc,
+                    }),
+                  }
+                );
+
+                // check the response from the server
+                if (!paymentResponse.ok) {
+                  throw new Error(
+                    `Failed to create payment: ${paymentResponse.statusText}`
+                  );
+                }
+                const paymentData = await paymentResponse.json();
+                console.log(paymentData);
+
+                const paymentId = paymentData.id;
+
+                const downloadResponse = await fetch(
+                  `http://localhost:8000/course_store/download/${paymentId}/`,
+                  {
+                    method: "GET",
+                    headers: {
+                      Authorization: `Token ${authToken}`,
+                    },
+                  }
+                );
+
+                console.log(downloadResponse);
+
+                if (downloadResponse.ok) {
+                  const fileData = await downloadResponse.blob();
+                  const filename = getFilenameFromResponseHeaders(
+                    downloadResponse.headers
+                  );
+
+                  const downloadLink = document.createElement("a");
+                  downloadLink.href = URL.createObjectURL(fileData);
+                  downloadLink.download = filename;
+
+                  downloadLink.click();
+
+                  URL.revokeObjectURL(downloadLink.href);
+                } else {
+                  throw new Error(
+                    `Failed to download file: ${downloadResponse.statusText}`
+                  );
+                }
+
+                // Function to extract filename from response headers
+                function getFilenameFromResponseHeaders(headers) {
+                  const contentDisposition = headers.get("Content-Disposition");
+                  const filenameRegex =
+                    /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                  const matches = filenameRegex.exec(contentDisposition);
+                  const filename =
+                    matches && matches[1]
+                      ? matches[1].replace(/['"]/g, "")
+                      : "file";
+                  return filename;
+                }
+              } catch (error) {
+                console.error(error);
+              }
+            }
+
+            processOrder();
+          }
+          return true;
+        });
+        // Make the first AJAX request
+
+        $.ajax({
+          url: `http://127.0.0.1:8000/course_store/subscription-info/`,
+          type: "GET",
+          dataType: "json",
+          success: function (data) {
+            // Assign the value of the course ID from the response to the variable courseId
+            // courseId = data.id;
+            // coursePrice = data.price;
+            // console.log(data.price_yearly, subscriptionId)
+            if (subscriptionId == 1) {
+              $("#course-price").text(`$${data.price_yearly}`);
+              $("#price-discount").text(`-${data.price_yearly_discount}%`);
+              $("#billed-today").text(
+                `$${(
+                  data.price_yearly *
+                  ((100 - data.price_yearly_discount) / 100)
+                ).toFixed(2)}`
+              );
+            } else if (subscriptionId == 2) {
+              $("#course-price").text(`$${data.price_monthly}`);
+              $("#price-discount").text(`-${data.price_monthly_discount}%`);
+              $("#billed-today").text(
+                `$${(
+                  data.price_monthly *
+                  ((100 - data.price_monthly_discount) / 100)
+                ).toFixed(2)}`
+              );
+            }
+
+            hidePreloader();
+          },
+        });
+
+        // Make the first AJAX request
+        $.ajax({
+          url: `http://localhost:8000/course_store/courses/${courseId}`,
+          type: "GET",
+          dataType: "json",
+          success: function (data) {
+            // Assign the value of the course ID from the response to the variable courseId
+            courseId = data.id;
+            coursePrice = data.price;
+
+            // Use the variable courseId anywhere in the script that you need to access the course ID
+            $('img[name="course-image"]').attr("src", data.image);
+            $(".course-name").text(data.name);
+            // $("#course-price").text(`$${data.price}`);
+            // $("#price-discount").text(`-${data.discount_percentage}%`);
+            // $("#billed-today").text(
+            //   `$${(
+            //     data.price *
+            //     ((100 - data.discount_percentage) / 100)
+            //   ).toFixed(2)}`
+            // );
+
+            hidePreloader();
+          },
+        });
+      });
+
+      function validateEmail(email) {
+        let re = /\S+@\S+\.\S+/;
+        return re.test(email);
+      }
+    </script>
+  </body>
+</html>

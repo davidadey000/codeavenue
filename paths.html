@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Code Avenue</title>
+  </head>
+  <body>
+    <div class="navbar__div" id="nav-placeholder"></div>
+    <div class="path">
+      <div class="path__content">
+        <div class="path__intro">
+          <h2>Learning Paths</h2>
+          <p>
+            Whether you're a beginner just starting out or an experienced
+            developer looking for courses to enhance your skills and reach
+            higher levels of software engineering, these learning paths will
+            help you achieve your goal.
+          </p>
+        </div>
+        <div class="path__accordion">
+          <!-- <div class="path__accordion-item">
+            <div class="path__accordion-header">
+              <h3>Fundamentals</h3>
+              <p>
+                Essential courses that anyone pursuing a career as a
+                professional software engineer should take. Data structures,
+                algorithms, design patterns, and more!
+              </p>
+              <button class="path__accordion-button">View</button>
+            </div>
+            <div class="path__accordion-content">
+              <h2>Programming Languages</h2>
+              <p class="path__accordion-content-text">
+                I have several courses on various programming languages such as
+                Python, Java, JavaScript, and C#. Professional software
+                engineers often know more than one language, but if you're
+                starting out, just focus on one language.
+              </p>
+              <p class="path__accordion-content-text">
+                I recommend you learn Java first, even if you're not planning to
+                use it in the future. Java is a classic programming language
+                with amazing features. Once you learn Java, you can quickly and
+                easily switch to similar languages like JavaScript, C#, C++,
+                etc.
+              </p>
+              <div>
+                <div class="path__accordion-course">
+                  <h3>Data Structures &amp; Algorithms: Part 2</h3>
+                  <p class="path__accordion-course-desc">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+                    ea unde aut dolorem quam fuga illo. Cupiditate placeat
+                    debitis ea!
+                  </p>
+                  <button class="path__accordion-course-btn">
+                    View Course
+                  </button>
+                </div>
+                <div class="path__accordion-course">
+                  <h3>Data Structures &amp; Algorithms: Part 2</h3>
+                  <p class="path__accordion-course-desc">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+                    ea unde aut dolorem quam fuga illo. Cupiditate placeat
+                    debitis ea!
+                  </p>
+                  <button class="path__accordion-course-btn">
+                    View Course
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div class="path__accordion-item">
+            <div class="path__accordion-header">
+              <h3>Front-end Development</h3>
+              <p>
+                All the courses you need to build beautiful websites. HTML, CSS,
+                JavaScript, React, and more!
+              </p>
+              <button class="path__accordion-button">View</button>
+            </div>
+            <div class="path__accordion-content">
+              <h2>HTML & CSS</h2>
+              <p class="path__accordion-content-text">
+                Front-end development starts with HTML and CSS. These are the
+                languages behind every web page on the Internet. My HTML/CSS
+                series teaches you everything you need to know from absolute
+                basics to advanced concepts.
+              </p>
+
+              <div>
+                <div class="path__accordion-course">
+                  <h3>HTML/CSS 1: Fundamentals</h3>
+                  <p class="path__accordion-course-desc">
+                    Learn and understand the fundamentals of web development
+                    with HTML and CSS.
+                  </p>
+                  <a href="./course.html?id=5">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+                <div class="path__accordion-course">
+                  <h3>HTML/CSS 2: Advanced Topics</h3>
+                  <p class="path__accordion-course-desc">
+                    Master advanced concepts behind fast, beautiful, and
+                    mobile-friendly websites.
+                  </p>
+                  <a href="./course.html?id=5">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+                <div class="path__accordion-course">
+                  <h3>HTML/CSS 3: Project</h3>
+                  <p class="path__accordion-course-desc">
+                    Everything you need to convert Photoshop designs to fast,
+                    mobile-friendly websites. View course
+                  </p>
+                  <a href="./course.html?id=5">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+              </div>
+              <h2>JAVASCRIPT</h2>
+              <p class="path__accordion-content-text">
+                HTML and CSS are only used for building static pages. To add
+                functionality to a page, you need to learn JavaScript.
+              </p>
+
+              <div>
+                <div class="path__accordion-course">
+                  <h3>JavaScript Basics for Beginners</h3>
+                  <p class="path__accordion-course-desc">
+                    Ideal place to start for people who have never programmed
+                    with JavaScript or need to refresh their fundamentals.
+                  </p>
+                  <a href="course.html?id=1">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+                <div class="path__accordion-course">
+                  <h3>JavaScript: Advanced Concepts</h3>
+                  <p class="path__accordion-course-desc">
+                    Learn and understand complex JavaScript concepts: objects,
+                    prototypes, prototypical inheritance, the "this" keyword,
+                    ES6+, and more.
+                  </p>
+                  <a href="course.html?id=1">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+                <div class="path__accordion-course">
+                  <h3>TypeScript: Beginner to Pro</h3>
+                  <p class="path__accordion-course-desc">
+                    Learn to make your JavaScript applications scale.
+                  </p>
+                  <a href="./course.html?id=6">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+              </div>
+              <h2>Libraries and Frameworks</h2>
+              <p class="path__accordion-content-text">
+                Modern applications are complex. That's where front-end tools
+                (libraries/frameworks) come to the rescue, helping us build and
+                ship applications faster. The top 3 tools in this space are
+                React, Angular, and Vue. Out of these, React is the most popular
+                so that's what I recommend you learn first. You can always learn
+                about other tools as needed.
+              </p>
+
+              <div>
+                <div class="path__accordion-course">
+                  <h3>React 18 for Beginners</h3>
+                  <p class="path__accordion-course-desc">
+                    A Step-by-Step Guide to Building Modern Web Apps with React
+                    and TypeScript
+                  </p>
+                  <a href="course.html?id=2">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+                <div class="path__accordion-course">
+                  <h3>The Ultimate Redux Course</h3>
+                  <p class="path__accordion-course-desc">
+                    Redux is the most popular state management library often
+                    used in React apps. This course helps you learn and
+                    understand what Redux really is, how it works, and how to
+                    effectively use it to manage the state of your apps.
+                  </p>
+                  <a href="./course.html?id=7">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+              </div>
+              <h2>Version Control and Collaboration</h2>
+
+              <div>
+                <div class="path__accordion-course">
+                  <h3>The Ultimate Git Mastery Course</h3>
+                  <p class="path__accordion-course-desc">
+                    Everything you need to version your code and collaborate
+                    with others using Git and GitHub in one course.
+                  </p>
+                  <a href="./course.html?id=8">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+              </div>
+              <h2>DevOps</h2>
+              <p class="path__accordion-content-text">
+                These days more and more companies are looking for software
+                engineers who know a bit about DevOps: a set of practices for
+                delivering software. Docker is the core tool used in this space.
+                Knowing it helps you reach higher levels of software
+                engineering.
+              </p>
+
+              <div>
+                <div class="path__accordion-course">
+                  <h3>The Ultimate Docker Course</h3>
+                  <p class="path__accordion-course-desc">
+                    Everything you need to master Docker in one clear, concise,
+                    and practical course.
+                  </p>
+                  <a href="course.html?id=9">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="path__accordion-item">
+            <div class="path__accordion-header">
+              <h3>Backend Development</h3>
+              <p>
+                All the courses you need to build powerful APIs for web and
+                mobile apps. Node, Django, MySQL, and more!
+              </p>
+              <button class="path__accordion-button">View</button>
+            </div>
+            <div class="path__accordion-content">
+              <h2>Core skills</h2>
+              <p class="path__accordion-content-text">
+                These are the skills that are listed in most job descriptions.
+                Every back-end developer must know how to work with databases,
+                version their code using Git, collaborate with others using
+                GitHub and potentially ship software using Docker.
+              </p>
+
+              <div>
+                <div class="path__accordion-course">
+                  <h3>Complete SQL Mastery</h3>
+                  <p class="path__accordion-course-desc">
+                    Everything you need to design and query MySQL databases in
+                    one course.
+                  </p>
+                  <a href="./course.html?id=10">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+               
+                <div class="path__accordion-course">
+                  <h3>The Ultimate Git Mastery Course</h3>
+                  <p class="path__accordion-course-desc">
+                    Everything you need to version your code and collaborate
+                    with others using Git and GitHub in one course.
+                  </p>
+                  <a href="./course.html?id=8">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+                <div class="path__accordion-course">
+                  <h3>The Ultimate Docker Course</h3>
+                  <p class="path__accordion-course-desc">
+                    Everything you need to master Docker in one clear, concise,
+                    and practical course.
+                  </p>
+                  <a href="./course.html?id=9">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+              </div>
+
+              <h2>Languages and Frameworks</h2>
+              <p class="path__accordion-content-text">
+                There are many programming languages and frameworks out there
+                for building back-ends, but you don't need to know them all. If
+                you're just starting out, focus on one language. You can learn
+                other languages as you move jobs. I currently have back-end
+                development courses on four languages.
+              </p>
+
+              <div>
+                <div class="path__accordion-course">
+                  <h3>Complete Python Mastery</h3>
+                  <p class="path__accordion-course-desc">
+                    Everything you need to program in Python in one course. Go
+                    from the basics to advanced concepts.
+                  </p>
+                  <a href="./course.html?id=3">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+                <div class="path__accordion-course">
+                  <h3>Django: Fundamentals</h3>
+                  <p class="path__accordion-course-desc">
+                    Master the fundamentals of web development with Python and Django.
+                  </p>
+                  <a  href="./course.html?id=11">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+                <div class="path__accordion-course">
+                  <h3>Django: Advanced Topics</h3>
+                  <p class="path__accordion-course-desc">
+                    Learn all about uploading files, automated testing, performance optimization, running background tasks, deployment and more.
+                  </p>
+                  <a href="./course.html?id=11">
+                    <button class="path__accordion-course-btn">
+                      View Course
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="path__accordion-item">
+            <div class="path__accordion-header">
+              <h3>Mobile Development</h3>
+              <p>
+                All the courses you need to build professional, cross-platform
+                mobile apps using React Native.
+              </p>
+              <button class="path__accordion-button">View</button>
+            </div>
+            <div class="path__accordion-content">
+              <h2 class="path__accordion-content-title">
+                Programming Languages
+              </h2>
+              <p class="path__accordion-content-text">
+                I have several courses on various programming languages such as
+                Python, Java, JavaScript, and C#. Professional software
+                engineers often know more than one language, but if you're
+                starting out, just focus on one language.
+              </p>
+              <p class="path__accordion-content-text">
+                I recommend you learn Java first, even if you're not planning to
+                use it in the future. Java is a classic programming language
+                with amazing features. Once you learn Java, you can quickly and
+                easily switch to similar languages like JavaScript, C#, C++,
+                etc.
+              </p>
+              <div>
+                <div>
+                  <h3>Data Structures &amp; Algorithms: Part 2</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+                    ea unde aut dolorem quam fuga illo. Cupiditate placeat
+                    debitis ea!
+                  </p>
+                  <button>View Course</button>
+                </div>
+                <div>
+                  <h3>Data Structures &amp; Algorithms: Part 2</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+                    ea unde aut dolorem quam fuga illo. Cupiditate placeat
+                    debitis ea!
+                  </p>
+                  <button>View Course</button>
+                </div>
+                <div>
+                  <h3>Data Structures &amp; Algorithms: Part 2</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+                    ea unde aut dolorem quam fuga illo. Cupiditate placeat
+                    debitis ea!
+                  </p>
+                  <button>View Course</button>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer__div" id="footer-placeholder"></footer>
+
+    <script>
+      $(document).ready(function () {
+        $("#nav-placeholder").load("nav.html");
+        $("#footer-placeholder").load("footer.html");
+
+        const accordionItems = document.querySelectorAll(
+          ".path__accordion-item"
+        );
+
+        accordionItems.forEach((item) => {
+          const button = item.querySelector(".path__accordion-button");
+          const header = item.querySelector(".path__accordion-header");
+          const content = item.querySelector(".path__accordion-content");
+          const storageKey = `accordion-${header.textContent.trim()}`; // Use header text as storage key
+
+          // Retrieve the stored state of the accordion
+          const isOpen = localStorage.getItem(storageKey) === "true";
+
+          if (isOpen) {
+            header.classList.add("active");
+            content.classList.add("show");
+            button.textContent = "Close";
+          }
+
+          header.addEventListener("click", () => {
+            header.classList.toggle("active");
+            content.classList.toggle("show");
+            button.textContent = content.classList.contains("show")
+              ? "Close"
+              : "View";
+
+            // Store the state of the accordion
+            localStorage.setItem(
+              storageKey,
+              content.classList.contains("show")
+            );
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

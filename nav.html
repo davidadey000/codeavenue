@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      .actived {
+        /* Define the styles for the active nav link */
+        font-weight: bold;
+        /* color: red; */
+        /* Change the color to your desired active state color */
+      }
+    </style>
+    <title>Navigation Bar</title>
+  </head>
+  <body>
+    <h4 class="navbar__title">
+      <a href="index.html" class="navbar__home">Code Avenue</a>
+    </h4>
+    <button class="navbar__menu-btn" onclick="toggleMenu()">
+      <i class="material-icons">menu</i>
+    </button>
+    <nav class="navbar__nav" id="navbar">
+      <a href="./subscription.html" class="navbar__nav-link">Subscribe</a>
+      <a href="./courses.html" class="navbar__nav-link">Courses</a>
+      <a href="./paths.html" class="navbar__nav-link">Learning Paths</a>
+      <a href="./blg.html" class="navbar__nav-link">Blog</a>
+      <div class="navbar__dropdown-div">
+        <div
+          style="display: flex; align-items: center; cursor: pointer"
+          onclick="toggleDropdown()"
+        >
+          <p class="navbar__dropdown-title navbar__nav-link">More</p>
+        </div>
+        <div class="navbar__dropdown" id="more">
+          <a href="./about.html" class="navbar__dropdown-link">About</a>
+          <a href="./contact.html" class="navbar__dropdown-link">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      // Get the current page URL
+      var currentPageUrl = window.location.href;
+
+      function checkAuth() {
+        // Check if the user is authenticated and the token is present
+        if (
+          localStorage.getItem("auth_token") !== null &&
+          localStorage.getItem("auth_token") !== undefined
+        ) {
+          $("#navbar").append(
+            '<div class="navbar__dropdown-div" id="profile-dropdown">' +
+              '<div style="display: flex; align-items: center ; cursor: pointer;" onclick="toggleDropdown2()">' +
+              '<p class="navbar__dropdown-title navbar__nav-link">Profile</p>' +
+              "</div>" +
+              '<div class="navbar__dropdown" id="profile">' +
+              '<a href="./profile.html" class="navbar__dropdown-link">Edit Profile</a>' +
+              '<a href="#" class="navbar__dropdown-link" onclick="logout()">Logout</a>' +
+              "</div>" +
+              "</div>"
+          );
+        } else {
+          $("#navbar").append(
+            '<a href="./login.html" class="navbar__nav-link">Login</a>' +
+              '<a href="./signup.html" class="navbar__nav-link --signup">Sign Up</a>'
+          );
+        }
+      }
+
+      checkAuth();
+
+      function logout() {
+        // Remove the token from the local storage
+        localStorage.removeItem("auth_token");
+        localStorage.clear()
+        // Redirect the user to the logout page
+        location.reload();
+      }
+       // Find the matching nav link and add the active class
+  $("#navbar a.navbar__nav-link").each(function() {
+    if (this.href === currentPageUrl) {
+      $(this).addClass("actived");
+    }
+  });
+
+  // Check if the current page URL contains "about" or "contact" and add the active class to the "More" link
+  if (currentPageUrl.includes("about") || currentPageUrl.includes("contact")) {
+    $(".navbar__dropdown-title:contains('More')").addClass("actived");
+  }
+
+  // Check if the current page URL ends with "profile.html" and add the active class to the "Profile" link
+  if (currentPageUrl.endsWith("profile.html")) {
+    $(".navbar__dropdown-title:contains('Profile')").addClass("actived");
+  }
+      function toggleMenu() {
+        const menuBtn = document.querySelector(".navbar__menu-btn");
+        menuBtn.classList.toggle("active");
+      }
+
+      function toggleDropdown() {
+        $("#more").toggleClass("navbar__dropdown--active");
+        $("#profile").removeClass("navbar__dropdown--active");
+      }
+
+      function toggleDropdown2() {
+        $("#profile").toggleClass("navbar__dropdown--active");
+        $("#more").removeClass("navbar__dropdown--active");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <style>
+      pre {
+        padding: 20px;
+        background-color: rgb(58, 58, 58);
+        border-radius: 5px;
+      }
+      img {
+        width:100%;
+        height: 30%;
+      }
+      code {
+        overflow-x: auto;
+        font-family: monospace;
+        display: inline;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      pre > code {
+        color: white;
+      }
+
+      .blog__post-content {
+        max-width: 90vw;
+      }
+
+      .blog__post-comment-list,
+      .blog__post-comments {
+        display: flex;
+        flex-direction: column;
+      }
+      .blog__post-comments {
+        width: 100%;
+      }
+      .blog__post-comment-details {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 10px;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .blog__post-comment-date {
+        font-size: 0.75rem;
+      }
+      .blog__post-comment-delete {
+        width: 20px;
+        box-shadow: none;
+        height: 20px;
+        background-color: transparent;
+      }
+      .blog__post-comment-delete i {
+        font-size: 1.25rem;
+      }
+      .blog__post-comment-labels {
+        display: flex;
+        justify-content: space-between;
+      }
+      .blog__post-comment-labels button {
+        box-shadow: none;
+        background-color: transparent;
+      }
+      .blog__post-comment-divider {
+        margin: 10px 0;
+      }
+
+      .blog__post-add-comment {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .blog__post-add-comment button {
+        width: 100px;
+        margin: 10px 0;
+      }
+      .blog__post-add-comment textarea {
+        height: 150px;
+        padding: 5px;
+        margin: 10px 0;
+        width: 100%;
+      }
+
+      @media screen and (min-width: 768px) {
+        .blog__post-add-comment textarea {
+          width: 80%;
+        }
+
+        .blog__post-comments {
+          width: 80%;
+        }
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Code Avenue</title>
+  </head>
+  <body>
+    <div class="navbar__div" id="nav-placeholder"></div>
+    <div id="preloader">
+      <div id="loader"></div>
+    </div>
+    <div>
+      <div class="blog__div">
+        <div>
+          <div class="blog__posts-div" id="posts">
+            <div class="blog__post">
+              <h1 class="blog__post-title" id="post-title">Post Title</h1>
+              <p class="blog__post-content" id="post-content">
+                Post content goes here.
+              </p>
+            </div>
+            <div class="blog__post-comments">
+              <div class="blog__post-comment-labels">
+                <h4>COMMENTS</h4>
+                <button id="add-comment-button">
+                  <i class="material-icons">add</i>
+                </button>
+              </div>
+              <div class="blog__post-comment-list" id="post-comments">
+                <div id="add-comment">
+                  <div class="blog__post-add-comment">
+                    <textarea
+                      type="text"
+                      id="comment-content"
+                      placeholder="Add a comment"
+                    ></textarea>
+                    <button id="submit-comment-button">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="blog__load-more-div">
+            <button class="blog__load-more blog__scroll-top" id="scroll-to-top">
+              Scroll to top
+            </button>
+          </div>
+        </div>
+        <div class="blog__right-bar">
+          <div>
+            <div class="blog__connect">
+              <h2>Connect with Me</h2>
+              <div class="blog__post-share-icons">
+                <a href="https://www.instagram.com/rideavenue/"
+                  ><img
+                    src="images/instagram.png"
+                    class="blog__post-share-icon"
+                /></a>
+                <a href="https://www.facebook.com/your_username"
+                  ><img src="images/facebook.png" class="blog__post-share-icon"
+                /></a>
+                <a href="https://twitter.com/davidadediji1?lang=en"
+                  ><img src="images/twitter.png" class="blog__post-share-icon"
+                /></a>
+                <a href="https://www.linkedin.com/in/david-adediji-a1bb35245/"
+                  ><img
+                    src="images/linkedin2.png"
+                    class="blog__post-share-icon"
+                /></a>
+              </div>
+            </div>
+            <div class="blog__categories">
+              <h2>Categories</h2>
+              <ul class="blog__category-list"></ul>
+            </div>
+            
+          </div>    <div style="height: 75px; background: linear-gradient(
+            180deg,
+           black, grey
+          );">
+  
+        </div>
+      </div>
+    </div>
+    <footer class="footer__div" id="footer-placeholder"></footer>
+    <script>
+      function showPreloader() {
+        $("#preloader").show();
+      }
+
+      function hidePreloader() {
+        $("#preloader").fadeOut("slow", function () {
+          $(this).remove();
+        });
+      }
+
+      $(document).ready(function () {
+        $("#nav-placeholder").load("nav.html");
+        $("#footer-placeholder").load("footer.html");
+
+        //         const post =""
+        // Get the ID of the post from the query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const postSlug = urlParams.get("slug");
+
+        // Use the ID to fetch the post data from an API or database
+        // const authToken = localStorage.getItem("auth_token");
+        // Use the ID to fetch the post data from an API or database
+        const authToken = localStorage.getItem("auth_token");
+        // Define a function to fetch the user ID
+        let userId = "";
+        function fetchUserId() {
+          const authToken = localStorage.getItem("auth_token");
+          if (authToken) {
+            $.ajax({
+              url: "http://localhost:8000/get_user_id/",
+              type: "GET",
+              dataType: "json",
+              headers: {
+                Authorization: `Token ${authToken}`,
+              },
+              success: function (data) {
+                userId = data.user_id;
+                console.log(userId);
+                // Use the user ID as needed
+              },
+              error: function (xhr, textStatus, errorThrown) {
+                console.error(errorThrown);
+              },
+            });
+          }
+        }
+
+        // Call the fetchUserId function to get the user ID
+        fetchUserId();
+
+        $("#add-comment").hide();
+
+        $.ajax({
+          url: `http://localhost:8000/blog/categories/ `,
+          type: "GET",
+          dataType: "json",
+          success: function (data) {
+            // hidePreloader();
+            for (let category of data) {
+              $(".blog__category-list").append(
+                `<li><a href="./blog.html?category=${category.name}" class="blog__category-link">${category.name}</a></li>`
+              );
+            }
+          },
+        });
+        $.ajax({
+          url: `http://localhost:8000/blog/posts/${postSlug}`,
+          type: "GET",
+          dataType: "json",
+          // headers: {
+          //   Authorization: `Token ${authToken}`,
+          // },
+          success: function (data) {
+            hidePreloader();
+
+            const postId = data.id;
+            // Display the post data on the page
+            const postTitle = document.querySelector("#post-title");
+            postTitle.textContent = data.title;
+
+            const postContent = document.querySelector("#post-content");
+            postContent.innerHTML = data.content;
+
+            const postComments = $("#post-comments");
+
+            if (data.comments.length > 0) {
+              for (let comment of data.comments) {
+                // console.log(comment.commentor.email)
+                const isoDateString = comment.created_on;
+                const date = new Date(isoDateString);
+
+                const options = {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                };
+                const formattedDate = date.toLocaleDateString("en-US", options);
+
+                console.log(formattedDate);
+                let deleteButton = "";
+                if (comment.email === userId) {
+                  deleteButton = `<button class="blog__post-comment-delete"><i class="material-icons">delete</i></button>`;
+                  $("#add-comment-button").hide();
+                }
+                postComments.append(
+                  `<hr class="blog__post-comment-divider"/><h4 style="font-weight: 500; color: rgb(50,50,50)">${comment.email}</h4>
+      <p>${comment.content}</p> <div class="blog__post-comment-details" data-comment-id="${comment.id}">                   
+        <small class="blog__post-comment-date">${formattedDate}</small> 
+        ${deleteButton}
+      </div>`
+                );
+              }
+            } else {
+              postComments.append(`<p>No comments available yet.</p>`);
+            }
+
+            // Add event listener to the add comment button
+            $("#add-comment-button").click(function () {
+              // Check if user is authenticated
+              if (!authToken) {
+                // Redirect to login page
+                sessionStorage.setItem("redirectUrl", window.location.href);
+
+                window.location.href = "./login.html";
+              } else {
+                // Show comment box
+                $("#add-comment").show();
+                $("#add-comment-button").hide();
+
+                // console.log(postId)
+                // Add event listener to the submit comment button
+                $("#submit-comment-button").click(function () {
+                  const commentContent = $("#comment-content").val();
+
+                  // Send request to add comment
+                  $.ajax({
+                    url: `http://localhost:8000/blog/comments/create/`,
+                    type: "POST",
+                    headers: {
+                      Authorization: `Token ${authToken}`,
+                    },
+                    data: {
+                      postId: postId,
+                      content: commentContent,
+                    },
+                    success: function (data) {
+                      // Reload page to show new comment
+                      location.reload();
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                      console.error(errorThrown);
+                      // window.location.href = "./login.html";
+                    },
+                  });
+                });
+              }
+            });
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+            alert("Error loading post. Please try again later.");
+          },
+        });
+
+        // Add event listener to the delete comment button
+        $(document).on("click", ".blog__post-comment-delete", function () {
+          const commentDetails = $(this).closest(".blog__post-comment-details");
+          const commentId = commentDetails.data("comment-id");
+
+          console.log(commentId);
+
+          // Send request to delete comment
+          $.ajax({
+            url: `http://localhost:8000/blog/comment/delete/${commentId}/`,
+            type: "DELETE",
+            headers: {
+              Authorization: `Token ${authToken}`,
+            },
+            success: function (data) {
+              // Reload page to show updated comments
+              location.reload();
+            },
+            error: function (xhr, textStatus, errorThrown) {
+              console.error(errorThrown);
+              alert("Error deleting comment. Please try again later.");
+            },
+          });
+        });
+
+        $("#scroll-to-top").click(function () {
+          $("html, body").animate({ scrollTop: 0 }, "slow");
+          return false;
+        });
+        // Add event listener to the logout button
+        $("#logout-button").click(function () {
+          // Remove the auth token from local storage
+          localStorage.removeItem("auth_token");
+          // Redirect to the login page
+          window.location.href = "./login.html";
+        });
+      });
+    </script>
+  </body>
+</html>

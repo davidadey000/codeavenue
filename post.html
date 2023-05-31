@@ -283,7 +283,7 @@
 
                 console.log(formattedDate);
                 let deleteButton = "";
-                if (comment.email === userId) {
+                if (comment.user === userId) {
                   deleteButton = `<button class="blog__post-comment-delete"><i class="material-icons">delete</i></button>`;
                   $("#add-comment-button").hide();
                 }

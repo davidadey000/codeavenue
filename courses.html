@@ -69,13 +69,47 @@
           $(this).remove();
         });
       }
-
       $(document).ready(function () {
         $("#nav-placeholder").load("nav.html");
         $("#footer-placeholder").load("footer.html");
+        let isSubscribed = false;
+        // Retrieve the auth_token from the local storage
+        let auth_token = localStorage.getItem("auth_token");
+
+        // Make a request to the server to get the user ID
+        $.ajax({
+          url: "http://127.0.0.1:8000/get_user_id/",
+          type: "GET",
+          headers: {
+            Authorization: "Token " + auth_token,
+          },
+          success: function (response) {
+            let userId = response.user_id;
+
+            // Pass the user ID as a query parameter in the AJAX request
+            $.ajax({
+              url: "http://127.0.0.1:8000/course_store/check-subscription/",
+              type: "GET",
+              data: { userId: userId },
+              success: function (response) {
+                isSubscribed = response.has_active_subscription;
+                loadCourses();
+              },
+              error: function (error) {
+                console.error("Error fetching subscription status:", error);
+              },
+            });
+
+            // ...
+          },
+          error: function (error) {
+            console.error("Error retrieving user ID:", error);
+          },
+        });
 
         let currentPage = 1;
         let courses = [];
+
         function loadCourses() {
           const url = "http://localhost:8000/course_store/courses";
 
@@ -104,22 +138,36 @@
           const pageCourses = courses.slice(startIndex, endIndex);
 
           for (let course of pageCourses) {
-            $(".course-list").append(`
-            <a href="./course.html?id=${course.id}" class="course">
-              <div class="course__div">
-                <img src="${course.image}" alt="" class="course__img" />
-                <div  class="course__details-div">
-                  <h3 class="course__title">${course.name}</h3>
-                  <p class="course__excerpt">
-                    ${course.summary}
-                  </p>
-                  <p style="display: inline;" class="course__footer">Duration:</p> <p style="display: inline;">${course.time_length} hours</p>
-                </div>
-              </div>
-            </a>  
-          `);
-          }
+            const watchButton = isSubscribed
+              ? `<button onclick="window.location.href = './stream.html'" style="margin: 0 7.5%; display: block;margin-top: 10px; padding: 5px 20px;  background: linear-gradient(
+          120deg,
+          #ff8d7f 0%,
+          #ff5f7d 30%,
+          #ff8ca0 55%,
+          #d897f3 75%,
+          #c87ee1 75%
+        ); color: white; border-radius: 3px; font-weight: 500">Watch</button>`
+              : "";
 
+            $(".course-list").append(`
+        <div class="course">
+          <div class="course__div">
+            <a href="./course.html?id=${course.id}">
+              <img src="${course.image}" alt="" class="course__img" />
+              <div class="course__details-div">
+                <h3 class="course__title">${course.name}</h3>
+                <p class="course__excerpt">
+                  ${course.summary}
+                </p>
+                <p style="display: inline;" class="course__footer">Duration:</p> 
+                <p style="display: inline;">${course.time_length} hours</p>
+              </div>
+            </a>
+            ${watchButton}
+          </div>
+        </div>  
+      `);
+          }
 
           // Show/hide prev/next buttons depending on the current page and the total number of pages
           if (currentPage == 1) {
@@ -134,9 +182,8 @@
             $("#next-button").show();
           }
 
-          
           hidePreloader();
-              $(window).scrollTop(0);
+          $(window).scrollTop(0);
         }
 
         loadCourses();
@@ -151,6 +198,7 @@
           currentPage--;
           showCourses(currentPage, courses);
         });
+
         $("#search-input").on("input", function () {
           const query = $("#search-input").val().toLowerCase();
 
@@ -169,6 +217,7 @@
 
           showCourses(1, filteredCourses);
         });
+
         // Handle category filter click events
         $(".course__category a").click(function (event) {
           event.preventDefault();

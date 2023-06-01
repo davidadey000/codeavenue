@@ -183,6 +183,7 @@
         let subscriptionId = urlParams.get("id");
         console.log(subscriptionId);
         let coursePrice = "";
+       
         // Function to determine the subscription duration based on the subscriptionId
         function getSubscriptionDuration(id) {
           if (id == 1) {
@@ -291,7 +292,7 @@
                   duration: getSubscriptionDuration(subscriptionId),
                 };
 
-                console.log(getSubscriptionDuration(subscriptionId))
+                console.log(getSubscriptionDuration(subscriptionId));
 
                 // make the first AJAX request to create the billing address
                 const billingAddressResponse = await fetch(
@@ -314,7 +315,6 @@
                 }
                 const billingAddressData = await billingAddressResponse.json();
                 const billingAddressId = billingAddressData.id;
-
 
                 // make the second AJAX request to create the order
                 const orderResponse = await fetch(
@@ -380,9 +380,7 @@
                 console.log(paymentData);
 
                 const paymentId = paymentData.id;
-                
-
-          } catch (error) {
+              } catch (error) {
                 console.error(error);
               }
             }

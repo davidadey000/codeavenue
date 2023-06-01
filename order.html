@@ -148,12 +148,12 @@
               </div>
               <div>
                 <p class="order__review">
-                  Mark, let me tell you I have been winning the code
+                  John, let me tell you I have been winning the code
                   competitions here in India and excelling in my work and it
                   gives me a great proud to say that you are my teacher. I have
                   purchased every course you have uploaded.
                 </p>
-                <p>— Markood Abiola</p>
+                <p>— Johnood Abiola</p>
               </div>
             </div>
           </div>
@@ -200,21 +200,21 @@
         return postalCodeRegex.test(postalCode);
       }
       function validateCardNumber(cardNumber) {
-          let sum = 0;
-          let shouldDouble = false;
-          for (let i = cardNumber.length - 1; i >= 0; i--) {
-            let digit = parseInt(cardNumber.charAt(i));
-            if (shouldDouble) {
-              digit *= 2;
-              if (digit > 9) {
-                digit -= 9;
-              }
+        let sum = 0;
+        let shouldDouble = false;
+        for (let i = cardNumber.length - 1; i >= 0; i--) {
+          let digit = parseInt(cardNumber.charAt(i));
+          if (shouldDouble) {
+            digit *= 2;
+            if (digit > 9) {
+              digit -= 9;
             }
-            sum += digit;
-            shouldDouble = !shouldDouble;
           }
-          return sum % 10 === 0;
+          sum += digit;
+          shouldDouble = !shouldDouble;
         }
+        return sum % 10 === 0;
+      }
       $(document).ready(function () {
         $("#nav-placeholder").load("nav.html");
         $("#footer-placeholder").load("footer.html");
@@ -357,7 +357,6 @@
                 window.location.href = "/login.html";
                 return false;
               } else {
-                
                 async function processOrder() {
                   try {
                     const billingAddress = {

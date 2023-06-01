@@ -533,6 +533,46 @@
 
         const authToken = localStorage.getItem("auth_token");
 
+        // Make a request to the server to get the user ID
+        $.ajax({
+          url: "http://127.0.0.1:8000/get_user_id/",
+          type: "GET",
+          headers: {
+            Authorization: "Token " + authToken,
+          },
+          success: function (response) {
+            let userId = response.user_id;
+
+            // Pass the user ID as a query parameter in the AJAX request
+            $.ajax({
+              url: "http://127.0.0.1:8000/course_store/check-subscription/",
+              type: "GET",
+              data: { userId: userId },
+              success: function (response) {
+                if (response.has_active_subscription) {
+                  $("#enroll").hide();
+                  $("#annual-subscription")
+                    .prop("disabled", true)
+                    .css({ backgroundColor: "grey" });
+                  $("#monthly-subscription")
+                    .prop("disabled", true)
+                    .css({ backgroundColor: "grey" });
+                } else {
+                  $("#enroll").show();
+                }
+              },
+              error: function (error) {
+                console.error("Error fetching subscription status:", error);
+              },
+            });
+
+            // ...
+          },
+          error: function (error) {
+            console.error("Error retrieving user ID:", error);
+          },
+        });
+
         const stars = document.querySelectorAll(".star");
         // Get the ID of the post from the query string
         const urlParams = new URLSearchParams(window.location.search);

@@ -4,201 +4,49 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Code Avenue</title>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
-    <link rel="stylesheet" href="./css/style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
       .stream__div {
-        display: flex;
-        flex-wrap: wrap;
-      }
-
-      .stream__video-div {
         padding: 2%;
-        flex: 1 1 70%; /* Adjust the flex properties as needed */
-      }
-
-      .reviews__div {
-        padding: 2%;
-        flex: 1 1 30%;
-        overflow-y: scroll;
-        max-height: 500px;
-      }
-
-      .reviews__div::-webkit-scrollbar {
-        width: 0.5em;
-      }
-
-      .reviews__div::-webkit-scrollbar-track {
-        background-color: transparent;
-      }
-
-      .reviews__div::-webkit-scrollbar-thumb {
-        background-color: transparent;
       }
 
       .stream__video {
         width: 100%;
-        height: 0;
-        padding-bottom: 56.25%; /* 16:9 aspect ratio (9 / 16 * 100) */
-        position: relative;
       }
-
-      .stream__video video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-
-      .reviews__card {
-        background-color: #f5f5f5;
-        border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-
-      .reviews__card .reviews__user {
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #333;
-      }
-
-      .reviews__card .reviews__content {
-        margin-bottom: 10px;
-        color: #666;
-      }
-
-      .reviews__button {
-        display: none;
-      }
-
-      @media screen and (max-width: 767px) {
-        .stream__video-div,
-        .reviews__div {
-          flex-basis: 100%;
-        }
-
-        .reviews__div {
-          max-height: none;
-        }
-
-        .reviews__button {
-          display: block;
-          margin-top: 10px;
-        }
-      }
-
       @media screen and (min-width: 768px) {
-        .stream__video-div {
-          padding: 5%;
-        }
+        
+      .stream__div {
+        padding: 5%;
       }
-
+      }
       @media screen and (min-width: 1024px) {
-        .stream__video-div {
-          padding: 7%;
-        }
+        
+      .stream__div {
+        padding: 7%;
+      }
       }
     </style>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Code Avenue</title>
   </head>
   <body>
     <div class="navbar__div" id="nav-placeholder"></div>
     <div class="stream__div">
-      <div class="stream__video-div">
-        <div class="stream__video">
-          <video controls autoplay></video>
-        </div>
-      </div>
-      <div class="reviews__div" id="reviews">
-        <div class="reviews__card">
-          <div class="reviews__user">Rufus Otibe</div>
-          <div class="reviews__content">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Pellentesque aliquet eget odio nec fermentum. In iaculis nisl ac dui
-            dapibus, id lacinia massa dapibus. Fusce et tristique sapien, vitae
-            auctor massa. Mauris id tristique mauris. Mauris sagittis finibus
-            lacus, et lobortis nunc consectetur sit amet."
-          </div>
-        </div>
-        <div class="reviews__card">
-          <div class="reviews__user">Jane Smith</div>
-          <div class="reviews__content">
-            "Nullam luctus ex non libero iaculis congue. Vivamus cursus erat sed
-            elit luctus, id pharetra quam sollicitudin. Suspendisse potenti.
-            Nunc tempus sapien vel nisl tristique, sit amet auctor justo
-            lobortis."
-          </div>
-        </div>
-      </div>
+      <video src="" class="stream__video"
+      controls autoplay>
+        <source src="" type="video/mp4" />
+      </video>
     </div>
     <footer class="footer__div" id="footer-placeholder"></footer>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       $(document).ready(function () {
         $("#nav-placeholder").load("nav.html");
         $("#footer-placeholder").load("footer.html");
-
-        const authToken = localStorage.getItem("auth_token");
-        var videoUrl = ""; // Set the initial video URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const courseId = urlParams.get("id");
-
-        // Retrieve the video URL from the server using an API endpoint or database query
-        $.ajax({
-          url: `http://localhost:8000/course_store/stream/${courseId}/`,
-          type: "GET",
-          headers: {
-            Authorization: `Token ${authToken}`,
-          },
-          success: function (response) {
-            videoUrl = response.video_url;
-            console.log(response);
-            console.log(videoUrl);
-            console.log("Downloadable filename:", response.filename); // Log the filename to the console
-            initializeVideo(videoUrl);
-          },
-          error: function (error) {
-            console.error("Error retrieving video URL:", error);
-          },
-        });
-
-        function initializeVideo(videoUrl) {
-          var videoElement = document.querySelector(".stream__video video");
-
-          // Set the video source to the Django server URL
-          videoElement.src = videoUrl;
-        }
-        $.ajax({
-          url: `http://localhost:8000/course_store/courses/${courseId}/reviews/`,
-          type: "GET",
-          dataType: "json",
-          success: function (data) {
-            for (review of data) {
-              $("#reviews").append(`
-              <div class="reviews__card">
-                <div class="reviews__user">${review.user}</div>
-                <div class="reviews__content">"${review.content}"</div>
-              </div>
-            `);
-            }
-          },
-          error: function (error) {
-            console.error("Error retrieving reviews:", error);
-          },
-        });
-        // $(".reviews__button").click(function () {
-        //   $(".reviews__button").hide();
-        //   // Code to display the course reviews under the video element
-        //   // You can add the necessary logic here to retrieve and display the reviews
-        // });
       });
     </script>
   </body>

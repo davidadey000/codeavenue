@@ -75,7 +75,13 @@
         let isSubscribed = false;
         // Retrieve the auth_token from the local storage
         let auth_token = localStorage.getItem("auth_token");
+        
+          // sessionStorage.setItem("redirectUrl", window.location.href);
+        if (!auth_token) {
+          // Redirect to login page
+          sessionStorage.setItem("redirectUrl", window.location.href);
 
+        }
         // Make a request to the server to get the user ID
         $.ajax({
           url: "http://127.0.0.1:8000/get_user_id/",
@@ -139,7 +145,7 @@
 
           for (let course of pageCourses) {
             const watchButton = isSubscribed
-              ? `<button onclick="window.location.href = './stream.html'" style="margin: 0 7.5%; display: block;margin-top: 10px; padding: 5px 20px;  background: linear-gradient(
+              ? `<button onclick="window.location.href = './stream.html?id=${course.id}'" style="margin: 0 7.5%; display: block;margin-top: 10px; padding: 5px 20px;  background: linear-gradient(
           120deg,
           #ff8d7f 0%,
           #ff5f7d 30%,

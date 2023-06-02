@@ -84,7 +84,7 @@
 
       // Make a request to the server to get the user ID
       $.ajax({
-        url: "http://127.0.0.1:8000/get_user_id/",
+        url: "https://coursefront-prod.herokuapp.com/get_user_id/",
         type: "GET",
         headers: {
           Authorization: "Token " + auth_token,
@@ -94,7 +94,7 @@
 
           // Pass the user ID as a query parameter in the AJAX request
           $.ajax({
-            url: "http://127.0.0.1:8000/course_store/check-subscription/",
+            url: "https://coursefront-prod.herokuapp.com/course_store/check-subscription/",
             type: "GET",
             data: { userId: userId },
             success: function (response) {

@@ -108,7 +108,9 @@
         font-size: 11px;
         margin: 10px 0;
         letter-spacing: 0;
-        font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+          "Helvetica Neue", sans-serif;
       }
 
       /* Optional: Add transition effect */
@@ -150,104 +152,119 @@
         >
       </form>
     </div>
-    <script>$(document).ready(function () {
-      $("#nav-placeholder").load("nav.html");
-      $("#footer-placeholder").load("footer.html");
-    
-      // Function to validate email format
-      function validateEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-      }
-    
-      // Function to validate name format
-      function validateName(name) {
-        const nameRegex = /^[a-zA-Z\s]+$/;
-        return nameRegex.test(name);
-      }
-    
-      // Function to show error message
-      function showError(inputElement, message) {
-        const errorContainer = $("<div class='error-message'></div>").text(message);
-        inputElement.after(errorContainer);
-        errorContainer.addClass("show");
-      }
-    
-      // Function to remove error message
-      function removeError(inputElement) {
-        inputElement.next(".error-message").remove();
-      }
-    
-      $("#signup-form").submit(function (event) {
-        event.preventDefault(); // Prevent the form from submitting normally
-    
-        // Get the form data
-        const firstName = $("input[name=first_name]").val();
-        const lastName = $("input[name=last_name]").val();
-        const email = $("input[name=email]").val();
-        const password = $("input[name=password]").val();
-        const username = $("input[name=username]").val();
-    
-        // Remove existing error messages
-        $(".error-message").remove();
-    
-        // Perform form validation
-        let isValid = true;
-    
-        if (!validateName(firstName)) {
-          showError($("input[name=first_name]"), "Please enter a valid first name (only alphabetic characters are allowed).");
-          isValid = false;
+    <script>
+      $(document).ready(function () {
+        $("#nav-placeholder").load("nav.html");
+        $("#footer-placeholder").load("footer.html");
+
+        // Function to validate email format
+        function validateEmail(email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
         }
-    
-        if (!validateName(lastName)) {
-          showError($("input[name=last_name]"), "Please enter a valid last name (only alphabetic characters are allowed).");
-          isValid = false;
+
+        // Function to validate name format
+        function validateName(name) {
+          const nameRegex = /^[a-zA-Z\s]+$/;
+          return nameRegex.test(name);
         }
-    
-        if (username.trim() === "") {
-          showError($("input[name=username]"), "Please enter your username.");
-          isValid = false;
+
+        // Function to show error message
+        function showError(inputElement, message) {
+          const errorContainer = $("<div class='error-message'></div>").text(
+            message
+          );
+          inputElement.after(errorContainer);
+          errorContainer.addClass("show");
         }
-    
-        if (email.trim() === "") {
-          showError($("input[name=email]"), "Please enter your email address.");
-          isValid = false;
-        } else if (!validateEmail(email)) {
-          showError($("input[name=email]"), "Please enter a valid email address.");
-          isValid = false;
+
+        // Function to remove error message
+        function removeError(inputElement) {
+          inputElement.next(".error-message").remove();
         }
-    
-        if (password.trim() === "") {
-          showError($("input[name=password]"), "Please enter a password.");
-          isValid = false;
-        }
-    
-        if (!isValid) {
-          return;
-        }
-    
-        // Send the form data using AJAX
-        $.ajax({
-          url: "http://localhost:8000/signup/", // The URL to your Django view
-          type: "POST",
-          data: {
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            password: password,
-            username: username,
-          },
-          success: function (response) {
-            console.log(response);
-            window.location.href = "./index.html";
-          },
-          error: function (xhr, status, error) {
-            console.error(error, xhr);
-            alert("Your account could not be created!")
-          },
+
+        $("#signup-form").submit(function (event) {
+          event.preventDefault(); // Prevent the form from submitting normally
+
+          // Get the form data
+          const firstName = $("input[name=first_name]").val();
+          const lastName = $("input[name=last_name]").val();
+          const email = $("input[name=email]").val();
+          const password = $("input[name=password]").val();
+          const username = $("input[name=username]").val();
+
+          // Remove existing error messages
+          $(".error-message").remove();
+
+          // Perform form validation
+          let isValid = true;
+
+          if (!validateName(firstName)) {
+            showError(
+              $("input[name=first_name]"),
+              "Please enter a valid first name (only alphabetic characters are allowed)."
+            );
+            isValid = false;
+          }
+
+          if (!validateName(lastName)) {
+            showError(
+              $("input[name=last_name]"),
+              "Please enter a valid last name (only alphabetic characters are allowed)."
+            );
+            isValid = false;
+          }
+
+          if (username.trim() === "") {
+            showError($("input[name=username]"), "Please enter your username.");
+            isValid = false;
+          }
+
+          if (email.trim() === "") {
+            showError(
+              $("input[name=email]"),
+              "Please enter your email address."
+            );
+            isValid = false;
+          } else if (!validateEmail(email)) {
+            showError(
+              $("input[name=email]"),
+              "Please enter a valid email address."
+            );
+            isValid = false;
+          }
+
+          if (password.trim() === "") {
+            showError($("input[name=password]"), "Please enter a password.");
+            isValid = false;
+          }
+
+          if (!isValid) {
+            return;
+          }
+
+          // Send the form data using AJAX
+          $.ajax({
+            url: "https://coursefront-prod.herokuapp.com/signup/", // The URL to your Django view
+            type: "POST",
+            data: {
+              first_name: firstName,
+              last_name: lastName,
+              email: email,
+              password: password,
+              username: username,
+            },
+            success: function (response) {
+              console.log(response);
+              window.location.href = "./index.html";
+            },
+            error: function (xhr, status, error) {
+              console.error(error, xhr);
+              alert("Your account could not be created!");
+            },
+          });
         });
       });
-    });
     </script>
   </body>
 </html>

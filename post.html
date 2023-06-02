@@ -212,7 +212,7 @@
           const authToken = localStorage.getItem("auth_token");
           if (authToken) {
             $.ajax({
-              url: "http://localhost:8000/get_user_id/",
+              url: "https://coursefront-prod.herokuapp.com/get_user_id/",
               type: "GET",
               dataType: "json",
               headers: {
@@ -236,7 +236,7 @@
         $("#add-comment").hide();
 
         $.ajax({
-          url: `http://localhost:8000/blog/categories/ `,
+          url: `https://coursefront-prod.herokuapp.com/blog/categories/ `,
           type: "GET",
           dataType: "json",
           success: function (data) {
@@ -249,7 +249,7 @@
           },
         });
         $.ajax({
-          url: `http://localhost:8000/blog/posts/${postSlug}`,
+          url: `https://coursefront-prod.herokuapp.com/blog/posts/${postSlug}`,
           type: "GET",
           dataType: "json",
           // headers: {
@@ -319,7 +319,7 @@
 
                   // Send request to add comment
                   $.ajax({
-                    url: `http://localhost:8000/blog/comments/create/`,
+                    url: `https://coursefront-prod.herokuapp.com/blog/comments/create/`,
                     type: "POST",
                     headers: {
                       Authorization: `Token ${authToken}`,
@@ -358,7 +358,7 @@
 
           // Send request to delete comment
           $.ajax({
-            url: `http://localhost:8000/blog/comment/delete/${commentId}/`,
+            url: `https://coursefront-prod.herokuapp.com/blog/comment/delete/${commentId}/`,
             type: "DELETE",
             headers: {
               Authorization: `Token ${authToken}`,

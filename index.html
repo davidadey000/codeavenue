@@ -89,10 +89,7 @@
               Become the Developer That Companies Are Looking For!
             </h1>
             <video class="home__hero-video" controls autoplay>
-              <source
-                src="./videos/about.mp4"
-             
-              />
+              <source src="./videos/about.mp4" />
               <!-- <source src="video.webm" type="video/webm" /> -->
               <!-- <source src="video.ogv" type="video/ogg" /> -->
               Your browser does not support the video tag.
@@ -295,14 +292,15 @@
         $("#modal-placeholder").load("sub_modal.html");
 
         function loadCourses() {
-          let urlf = "http://localhost:8000/course_store/top-selling-courses";
+          let urlf =
+            "https://coursefront-prod.herokuapp.com/course_store/top-selling-courses";
 
           // Check if a category parameter is present in the URL
           const urlParams = new URLSearchParams(window.location.search);
           // const categorySlug = urlParams.get("category");
 
           // if (categorySlug) {
-          //   urlf = `http://localhost:8000/course_store/courses/category/${categorySlug}/`;
+          //   urlf = `https://coursefront-prod.herokuapp.com/course_store/courses/category/${categorySlug}/`;
           // }
 
           $.ajax({

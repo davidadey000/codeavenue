@@ -225,7 +225,7 @@
 
         // Declare the courseId variable outside the success callback function
         $.ajax({
-          url: `http://localhost:8000/course_store/courses/${courseId}/reviews/`,
+          url: `https://coursefront-prod.herokuapp.com/course_store/courses/${courseId}/reviews/`,
           type: "GET",
           dataType: "json",
           success: function (data) {
@@ -248,7 +248,7 @@
 
         // Make the first AJAX request
         $.ajax({
-          url: `http://localhost:8000/course_store/courses/${courseId}`,
+          url: `https://coursefront-prod.herokuapp.com/course_store/courses/${courseId}`,
           type: "GET",
           dataType: "json",
           success: function (data) {
@@ -269,8 +269,8 @@
             );
 
             $("#order-now").click(function () {
-              // $(this).prop("disabled", true);
-              // $(this).text("Processing...");
+              $(this).prop("disabled", true);
+              $(this).text("Processing...");
               // Validate email address
               let email = $(".order__get-started-email").val();
               // if (!validateEmail(email)) {
@@ -371,7 +371,7 @@
 
                     // make the first AJAX request to create the billing address
                     const billingAddressResponse = await fetch(
-                      "http://localhost:8000/course_store/billing-address-create/",
+                      "https://coursefront-prod.herokuapp.com/course_store/billing-address-create/",
                       {
                         method: "POST",
                         headers: {
@@ -394,7 +394,7 @@
 
                     // make the second AJAX request to create the order
                     const orderResponse = await fetch(
-                      "http://localhost:8000/course_store/order/",
+                      "https://coursefront-prod.herokuapp.com/course_store/order/",
                       {
                         method: "POST",
                         headers: {
@@ -432,7 +432,7 @@
 
                     // Pass the updated card expiry date in the request body
                     const paymentResponse = await fetch(
-                      "http://localhost:8000/course_store/payments/",
+                      "https://coursefront-prod.herokuapp.com/course_store/payments/",
                       {
                         method: "POST",
                         headers: {
@@ -461,7 +461,7 @@
                     const paymentId = paymentData.id;
 
                     const downloadResponse = await fetch(
-                      `http://localhost:8000/course_store/download/${paymentId}/`,
+                      `https://coursefront-prod.herokuapp.com/course_store/download/${paymentId}/`,
                       {
                         method: "GET",
                         headers: {
@@ -511,8 +511,8 @@
                   } catch (error) {
                     console.error(error);
 
-                    // $("#order-now").prop("disabled", false);
-                    // $("#order-now").text("Buy Now");
+                    $("#order-now").prop("disabled", false);
+                    $("#order-now").text("Buy Now");
                   }
                 }
 

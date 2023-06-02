@@ -597,8 +597,14 @@ body::-webkit-scrollbar-track {
 
 .path__accordion-button {
   margin: 20px 0;
-  color: white;
-  background-color: #7250d5;
+  color: white;  background: linear-gradient(
+    120deg,
+    #7250d5 0,
+    #aa47a5 30%,
+    rgba(58, 145, 244, 0.8) 65%,
+    rgba(58, 145, 244, 0.9) 65%,
+    rgba(58, 103, 244, 0.9) 85%
+  );
   padding: 10px 20px;
   border-radius: 25px;
   font-size: 1rem;
@@ -790,7 +796,7 @@ body::-webkit-scrollbar-track {
 
 .blog__post-share-icons {
   display: flex;
-  gap: 0 1rem;
+  gap: 0 0.5rem;
   margin: 2% 0;
 }
 

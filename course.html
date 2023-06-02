@@ -555,7 +555,7 @@
         const authToken = localStorage.getItem("auth_token");
         // Make a request to the server to get the user ID
         $.ajax({
-          url: "https://coursefront-prod.herokuapp.com/get_user_id/",
+          url: "http://localhost:8000/get_user_id/",
           type: "GET",
           headers: {
             Authorization: "Token " + authToken,
@@ -565,7 +565,7 @@
 
             // Pass the user ID as a query parameter in the AJAX request
             $.ajax({
-              url: "https://coursefront-prod.herokuapp.com/course_store/check-subscription/",
+              url: "http://localhost:8000/course_store/check-subscription/",
               type: "GET",
               data: { userId: userId },
               success: function (response) {
@@ -588,7 +588,7 @@
         });
 
         $.ajax({
-          url: `https://coursefront-prod.herokuapp.com/course_store/subscription-info/`,
+          url: `http://localhost:8000/course_store/subscription-info/`,
           type: "GET",
           // headers: {
           //   Authorization: "Token " + authToken,
@@ -636,7 +636,7 @@
         if (authToken) {
           // Make an AJAX request to check if the user has downloaded the course
           $.ajax({
-            url: `https://coursefront-prod.herokuapp.com/course_store/check-download/${courseId}/`,
+            url: `http://localhost:8000/course_store/check-download/${courseId}/`,
             type: "GET",
             headers: {
               Authorization: "Token " + authToken,
@@ -650,7 +650,7 @@
             },
           });
           $.ajax({
-            url: `https://coursefront-prod.herokuapp.com/course_store/check-subscription/${courseId}/`,
+            url: `http://localhost:8000/course_store/check-subscription/${courseId}/`,
             type: "GET",
             headers: {
               Authorization: "Token " + authToken,
@@ -691,7 +691,7 @@
           // const authToken = localStorage.getItem("auth_token");
           if (!(comment.trim().length === 0)) {
             $.ajax({
-              url: "https://coursefront-prod.herokuapp.com/course_store/reviews/",
+              url: "http://localhost:8000/course_store/reviews/",
               type: "POST",
               headers: {
                 Authorization: "Token " + authToken,
@@ -715,7 +715,7 @@
         });
 
         $.ajax({
-          url: `https://coursefront-prod.herokuapp.com/course_store/courses/${courseId}`,
+          url: `http://localhost:8000/course_store/courses/${courseId}`,
           type: "GET",
           dataType: "json",
           success: function (data) {

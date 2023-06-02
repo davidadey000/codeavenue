@@ -198,7 +198,7 @@
 
         // Declare the courseId variable outside the success callback function
         // $.ajax({
-        //   url: `https://coursefront-prod.herokuapp.com/course_store/courses/${courseId}/reviews/`,
+        //   url: `http://localhost:8000/course_store/courses/${courseId}/reviews/`,
         //   type: "GET",
         //   dataType: "json",
         //   success: function (data) {
@@ -296,7 +296,7 @@
 
                 // make the first AJAX request to create the billing address
                 const billingAddressResponse = await fetch(
-                  "https://coursefront-prod.herokuapp.com/course_store/billing-address-create/",
+                  "http://localhost:8000/course_store/billing-address-create/",
                   {
                     method: "POST",
                     headers: {
@@ -318,7 +318,7 @@
 
                 // make the second AJAX request to create the order
                 const orderResponse = await fetch(
-                  "https://coursefront-prod.herokuapp.com/course_store/subscription-order/",
+                  "http://localhost:8000/course_store/subscription-order/",
                   {
                     method: "POST",
                     headers: {
@@ -353,7 +353,7 @@
 
                 // Pass the updated card expiry date in the request body
                 const paymentResponse = await fetch(
-                  "https://coursefront-prod.herokuapp.com/course_store/subscription-payments/",
+                  "http://localhost:8000/course_store/subscription-payments/",
                   {
                     method: "POST",
                     headers: {
@@ -392,7 +392,7 @@
         // Make the first AJAX request
 
         $.ajax({
-          url: `https://coursefront-prod.herokuapp.com/course_store/subscription-info/`,
+          url: `http://localhost:8000/course_store/subscription-info/`,
           type: "GET",
           dataType: "json",
           success: function (data) {
@@ -426,7 +426,7 @@
 
         // Make the first AJAX request
         $.ajax({
-          url: `https://coursefront-prod.herokuapp.com/course_store/courses/${courseId}`,
+          url: `http://localhost:8000/course_store/courses/${courseId}`,
           type: "GET",
           dataType: "json",
           success: function (data) {

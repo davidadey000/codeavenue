@@ -292,15 +292,14 @@
         $("#modal-placeholder").load("sub_modal.html");
 
         function loadCourses() {
-          let urlf =
-            "https://coursefront-prod.herokuapp.com/course_store/top-selling-courses";
+          let urlf = "http://localhost:8000/course_store/top-selling-courses";
 
           // Check if a category parameter is present in the URL
           const urlParams = new URLSearchParams(window.location.search);
           // const categorySlug = urlParams.get("category");
 
           // if (categorySlug) {
-          //   urlf = `https://coursefront-prod.herokuapp.com/course_store/courses/category/${categorySlug}/`;
+          //   urlf = `http://localhost:8000/course_store/courses/category/${categorySlug}/`;
           // }
 
           $.ajax({

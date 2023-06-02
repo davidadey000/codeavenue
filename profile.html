@@ -451,7 +451,7 @@
             // Perform the AJAX request to update the billing address
             const authToken = localStorage.getItem("auth_token");
             $.ajax({
-              url: "https://coursefront-prod.herokuapp.com/course_store/billing-address-create/",
+              url: "http://localhost:8000/course_store/billing-address-create/",
               type: "POST",
               headers: {
                 Authorization: `Token ${authToken}`,
@@ -481,7 +481,7 @@
           }
         });
         $.ajax({
-          url: "https://coursefront-prod.herokuapp.com/users/",
+          url: "http://localhost:8000/users/",
           type: "GET",
           headers: { Authorization: `Token ${authToken}` },
           success: function (data) {
@@ -493,7 +493,7 @@
         });
 
         $.ajax({
-          url: "https://coursefront-prod.herokuapp.com/course_store/billing-address/",
+          url: "http://localhost:8000/course_store/billing-address/",
           type: "GET",
           headers: { Authorization: `Token ${authToken}` },
           success: function (data) {
@@ -568,7 +568,7 @@
             console.log("got1");
             // Send POST request to API endpoint with new name
             $.ajax({
-              url: "https://coursefront-prod.herokuapp.com/users/update/",
+              url: "http://localhost:8000/users/update/",
               type: "PUT",
               headers: {
                 Authorization: `Token ${authToken}`,
@@ -593,7 +593,7 @@
           console.log("got1");
           // Send POST request to API endpoint with new name
           $.ajax({
-            url: "https://coursefront-prod.herokuapp.com/users/update/",
+            url: "http://localhost:8000/users/update/",
             type: "PUT",
             headers: {
               Authorization: `Token ${authToken}`,
@@ -634,7 +634,7 @@
             console.log("got1");
             // Send POST request to API endpoint with new name
             $.ajax({
-              url: "https://coursefront-prod.herokuapp.com/users/update/",
+              url: "http://localhost:8000/users/update/",
               type: "PUT",
               headers: {
                 Authorization: `Token ${authToken}`,
@@ -678,7 +678,7 @@
             console.log("got3");
             // Send POST request to API endpoint with new name
             $.ajax({
-              url: "https://coursefront-prod.herokuapp.com/users/update/",
+              url: "http://localhost:8000/users/update/",
               type: "PUT",
               headers: {
                 Authorization: `Token ${authToken}`,

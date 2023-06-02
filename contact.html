@@ -60,7 +60,7 @@
           var token = localStorage.getItem("auth_token");
 
           $.ajax({
-            url: "https://coursefront-prod.herokuapp.com/contact/",
+            url: "http://localhost:8000/contact/",
             type: "POST",
             data: {
               email: email,

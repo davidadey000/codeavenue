@@ -535,7 +535,7 @@
 
         // Make a request to the server to get the user ID
         $.ajax({
-          url: "https://coursefront-prod.herokuapp.com/get_user_id/",
+          url: "http://localhost:8000/get_user_id/",
           type: "GET",
           headers: {
             Authorization: "Token " + authToken,
@@ -545,7 +545,7 @@
 
             // Pass the user ID as a query parameter in the AJAX request
             $.ajax({
-              url: "https://coursefront-prod.herokuapp.com/course_store/check-subscription/",
+              url: "http://localhost:8000/course_store/check-subscription/",
               type: "GET",
               data: { userId: userId },
               success: function (response) {
@@ -580,7 +580,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const courseId = 12;
         $.ajax({
-          url: `https://coursefront-prod.herokuapp.com/course_store/subscription-info/`,
+          url: `http://localhost:8000/course_store/subscription-info/`,
           type: "GET",
 
           // Replace <course_id_here> with the actual course ID
@@ -653,7 +653,7 @@
         if (authToken) {
           // Make an AJAX request to check if the user has downloaded the course
           $.ajax({
-            url: `https://coursefront-prod.herokuapp.com/course_store/check-download/${courseId}/`,
+            url: `http://localhost:8000/course_store/check-download/${courseId}/`,
             type: "GET",
             headers: {
               Authorization: "Token " + authToken,
@@ -687,15 +687,14 @@
         });
 
         function loadCourses() {
-          let urlf =
-            "https://coursefront-prod.herokuapp.com/course_store/courses";
+          let urlf = "http://localhost:8000/course_store/courses";
 
           // Check if a category parameter is present in the URL
           const urlParams = new URLSearchParams(window.location.search);
           // const categorySlug = urlParams.get("category");
 
           // if (categorySlug) {
-          //   urlf = `https://coursefront-prod.herokuapp.com/course_store/courses/category/${categorySlug}/`;
+          //   urlf = `http://localhost:8000/course_store/courses/category/${categorySlug}/`;
           // }
 
           $.ajax({
@@ -737,7 +736,7 @@
         loadCourses();
 
         $.ajax({
-          url: `https://coursefront-prod.herokuapp.com/course_store/courses/12`,
+          url: `http://localhost:8000/course_store/courses/12`,
           type: "GET",
           dataType: "json",
           success: function (data) {
@@ -781,7 +780,7 @@
           const authToken = localStorage.getItem("auth_token");
           if (!(comment.trim().length === 0)) {
             $.ajax({
-              url: "https://coursefront-prod.herokuapp.com/course_store/reviews/",
+              url: "http://localhost:8000/course_store/reviews/",
               type: "POST",
               headers: {
                 Authorization: "Token " + authToken,

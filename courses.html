@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link rel="stylesheet" href="css/style.css" />
-  <title>Code Avenue</title>
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-  </style>
-</head>
-<body>
-  <div id="nav-placeholder" class="navbar__div"></div>
-  <div id="preloader">
-    <div id="loader"></div>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Code Avenue</title>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nav-placeholder" class="navbar__div"></div>
+    <div id="preloader">
+      <div id="loader"></div>
+    </div>
 
-  <!-- Add the sort by categories dropdown -->
-  <div class="course__controls">
-    <!-- <div class="course__category">
+    <!-- Add the sort by categories dropdown -->
+    <div class="course__controls">
+      <!-- <div class="course__category">
       <label for="category-select" class="course__category-lbl">Sort by category:</label>
       <select id="category-select" class="course__category-select">
         <option value="all">All</option>
@@ -31,152 +39,154 @@
         <option value="backend">Backend</option>
       </select>
     </div> -->
-    <div class="course__search-box">
-      <input
-        type="text"
-        id="search-input"
-        maxlength="45"
-        class="course__search-input"
-        placeholder="Search for courses"
-        aria-label="Search"
-      />
+      <div class="course__search-box">
+        <input
+          type="text"
+          id="search-input"
+          maxlength="45"
+          class="course__search-input"
+          placeholder="Search for courses"
+          aria-label="Search"
+        />
+      </div>
     </div>
-  </div>
 
-  <div class="no-results" style="display: none; text-align: center">
-    No results found.
-  </div>
+    <div class="no-results" style="display: none; text-align: center">
+      No results found.
+    </div>
 
-  <div class="course-list"></div>
+    <div class="course-list"></div>
 
-  <div class="course__pagination">
-    <!-- Add the following buttons to your HTML code -->
-    <button id="prev-button">Prev</button>
-    <button id="next-button">Next</button>
-  </div>
+    <div class="course__pagination">
+      <!-- Add the following buttons to your HTML code -->
+      <button id="prev-button">Prev</button>
+      <button id="next-button">Next</button>
+    </div>
 
-  <div class="footer__div" id="footer-placeholder"></div>
+    <div class="footer__div" id="footer-placeholder"></div>
 
-  <script>
-    function showPreloader() {
-      $("#preloader").show();
-    }
-
-    function hidePreloader() {
-      $("#preloader").fadeOut("slow", function () {
-        $(this).remove();
-      });
-    }
-
-    $(document).ready(function () {
-      $("#nav-placeholder").load("nav.html");
-      $("#footer-placeholder").load("footer.html");
-      let isSubscribed = false;
-
-      // Retrieve the auth_token from the local storage
-      let auth_token = localStorage.getItem("auth_token");
-
-      // sessionStorage.setItem("redirectUrl", window.location.href);
-      if (!auth_token) {
-        // Redirect to the login page
-        sessionStorage.setItem("redirectUrl", window.location.href);
+    <script>
+      function showPreloader() {
+        $("#preloader").show();
       }
 
-      // Make a request to the server to get the user ID
-      $.ajax({
-        url: "https://coursefront-prod.herokuapp.com/get_user_id/",
-        type: "GET",
-        headers: {
-          Authorization: "Token " + auth_token,
-        },
-        success: function (response) {
-          let userId = response.user_id;
-
-          // Pass the user ID as a query parameter in the AJAX request
-          $.ajax({
-            url: "https://coursefront-prod.herokuapp.com/course_store/check-subscription/",
-            type: "GET",
-            data: { userId: userId },
-            success: function (response) {
-              isSubscribed = response.has_active_subscription;
-              loadCourses();
-            },
-            error: function (error) {
-              console.error("Error fetching subscription status:", error);
-            },
-          });
-
-          // ...
-        },
-        error: function (error) {
-          console.error("Error retrieving user ID:", error);
-        },
-      });
-
-      let currentPage = 1;
-      let courses = [];
-
-      function loadCourses() {
-        const url = "https://coursefront-prod.herokuapp.com/course_store/courses";
-
-        $.ajax({
-          url: url,
-          type: "GET",
-          dataType: "json",
-          success: function (data) {
-            courses = data;
-            showCourses(currentPage, courses);
-          },
-          error: function (error) {
-            if (error.status == 404) {
-              return;
-            }
-          },
+      function hidePreloader() {
+        $("#preloader").fadeOut("slow", function () {
+          $(this).remove();
         });
       }
 
-      function showCourses(page, courses) {
-        // Clear the existing course list before appending new courses
-        $(".course-list").empty();
+      $(document).ready(function () {
+        $("#nav-placeholder").load("nav.html");
+        $("#footer-placeholder").load("footer.html");
+        let isSubscribed = false;
 
-        const startIndex = (page - 1) * 6;
-        const endIndex = startIndex + 6;
-        const pageCourses = courses.slice(startIndex, endIndex);
+        // Retrieve the auth_token from the local storage
+        let auth_token = localStorage.getItem("auth_token");
 
-        for (let course of pageCourses) {
-          const averageRating = course.average_rating !== null ? course.average_rating : 'N/A';
+        // sessionStorage.setItem("redirectUrl", window.location.href);
+        if (!auth_token) {
+          // Redirect to the login page
+          sessionStorage.setItem("redirectUrl", window.location.href);
+        }
 
-          let ratingStars = '';
-if (course.average_rating !== null) {
-  const fullStars = Math.floor(course.average_rating);
-  const remainingStars = course.average_rating - fullStars;
-  const roundedRating = Math.round(course.average_rating);
+        // Make a request to the server to get the user ID
+        $.ajax({
+          url: "http://localhost:8000/get_user_id/",
+          type: "GET",
+          headers: {
+            Authorization: "Token " + auth_token,
+          },
+          success: function (response) {
+            let userId = response.user_id;
 
-  // Add full stars
-  for (let i = 0; i < fullStars; i++) {
-    ratingStars += '<i class="fas fa-star" style="color: gold"></i>';
-  }
+            // Pass the user ID as a query parameter in the AJAX request
+            $.ajax({
+              url: "http://localhost:8000/course_store/check-subscription/",
+              type: "GET",
+              data: { userId: userId },
+              success: function (response) {
+                isSubscribed = response.has_active_subscription;
+                loadCourses();
+              },
+              error: function (error) {
+                console.error("Error fetching subscription status:", error);
+              },
+            });
 
-  // Add half star if applicable
-  if (remainingStars >= 0.25 && remainingStars < 0.75) {
-    ratingStars += '<i class="fas fa-star" style="color: gold"></i>';
-  } else if (remainingStars >= 0.75) {
-    ratingStars += '<i class="fas fa-star" style="color: gold"></i>';
-  }
+            // ...
+          },
+          error: function (error) {
+            console.error("Error retrieving user ID:", error);
+          },
+        });
 
-  // Add empty stars if applicable
-  if (roundedRating < 5) {
-    const emptyStars = 5 - roundedRating;
-    for (let i = 0; i < emptyStars; i++) {
-      ratingStars += '<i class="far fa-star-half"></i>';
-    }
-  }
-}
+        let currentPage = 1;
+        let courses = [];
 
+        function loadCourses() {
+          const url = "http://localhost:8000/course_store/courses";
 
+          $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+              courses = data;
+              showCourses(currentPage, courses);
+            },
+            error: function (error) {
+              if (error.status == 404) {
+                return;
+              }
+            },
+          });
+        }
 
-          const watchButton = isSubscribed
-            ? `<button onclick="window.location.href = './stream.html?id=${course.id}'" style="margin: 0 7.5%; display: block;margin-top: 10px; padding: 5px 20px;  background: linear-gradient(
+        function showCourses(page, courses) {
+          // Clear the existing course list before appending new courses
+          $(".course-list").empty();
+
+          const startIndex = (page - 1) * 6;
+          const endIndex = startIndex + 6;
+          const pageCourses = courses.slice(startIndex, endIndex);
+
+          for (let course of pageCourses) {
+            const averageRating =
+              course.average_rating !== null ? course.average_rating : "N/A";
+
+            let ratingStars = "";
+            if (course.average_rating !== null) {
+              const fullStars = Math.floor(course.average_rating);
+              const remainingStars = course.average_rating - fullStars;
+              const roundedRating = Math.round(course.average_rating);
+
+              // Add full stars
+              for (let i = 0; i < fullStars; i++) {
+                ratingStars +=
+                  '<i class="fas fa-star" style="color: gold"></i>';
+              }
+
+              // Add half star if applicable
+              if (remainingStars >= 0.25 && remainingStars < 0.75) {
+                ratingStars +=
+                  '<i class="fas fa-star" style="color: gold"></i>';
+              } else if (remainingStars >= 0.75) {
+                ratingStars +=
+                  '<i class="fas fa-star" style="color: gold"></i>';
+              }
+
+              // Add empty stars if applicable
+              if (roundedRating < 5) {
+                const emptyStars = 5 - roundedRating;
+                for (let i = 0; i < emptyStars; i++) {
+                  ratingStars += '<i class="far fa-star-half"></i>';
+                }
+              }
+            }
+
+            const watchButton = isSubscribed
+              ? `<button onclick="window.location.href = './stream.html?id=${course.id}'" style="margin: 0 7.5%; display: block;margin-top: 10px; padding: 5px 20px;  background: linear-gradient(
                 120deg,
                 #ff8d7f 0%,
                 #ff5f7d 30%,
@@ -184,9 +194,9 @@ if (course.average_rating !== null) {
                 #d897f3 75%,
                 #c87ee1 75%
               ); color: white; border-radius: 3px; font-weight: 500">Watch</button>`
-            : "";
+              : "";
 
-          $(".course-list").append(`
+            $(".course-list").append(`
             <div class="course">
               <div class="course__div">
                 <a href="./course.html?id=${course.id}">
@@ -207,71 +217,71 @@ if (course.average_rating !== null) {
               </div>
             </div>  
           `);
+          }
+
+          // Show/hide prev/next buttons depending on the current page and the total number of pages
+          if (currentPage == 1) {
+            $("#prev-button").hide();
+          } else {
+            $("#prev-button").show();
+          }
+
+          if (endIndex >= courses.length) {
+            $("#next-button").hide();
+          } else {
+            $("#next-button").show();
+          }
+
+          hidePreloader();
+          $(window).scrollTop(0);
         }
 
-        // Show/hide prev/next buttons depending on the current page and the total number of pages
-        if (currentPage == 1) {
-          $("#prev-button").hide();
-        } else {
-          $("#prev-button").show();
-        }
+        loadCourses();
 
-        if (endIndex >= courses.length) {
-          $("#next-button").hide();
-        } else {
-          $("#next-button").show();
-        }
-
-        hidePreloader();
-        $(window).scrollTop(0);
-      }
-
-      loadCourses();
-
-      // Add click event handler for the "Next" and "Previous" buttons
-      $("#next-button").click(function () {
-        currentPage++;
-        showCourses(currentPage, courses);
-      });
-
-      $("#prev-button").click(function () {
-        currentPage--;
-        showCourses(currentPage, courses);
-      });
-
-      $("#search-input").on("input", function () {
-        const query = $("#search-input").val().toLowerCase();
-
-        const filteredCourses = courses.filter((course) => {
-          return (
-            course.name.toLowerCase().includes(query) ||
-            course.summary.toLowerCase().includes(query)
-          );
+        // Add click event handler for the "Next" and "Previous" buttons
+        $("#next-button").click(function () {
+          currentPage++;
+          showCourses(currentPage, courses);
         });
 
-        if (filteredCourses.length === 0) {
-          $(".no-results").show();
-        } else {
-          $(".no-results").hide();
-        }
+        $("#prev-button").click(function () {
+          currentPage--;
+          showCourses(currentPage, courses);
+        });
 
-        showCourses(1, filteredCourses);
-      });
+        $("#search-input").on("input", function () {
+          const query = $("#search-input").val().toLowerCase();
 
-      // Handle category filter click events
-      $(".course__category a").click(function (event) {
-        event.preventDefault();
-        var category = $(this).data("category");
-        if (category === "all") {
-          $(".course").show();
-        } else {
-          $(".course")
-            .hide()
-            .filter("[data-category='" + category + "']")
-            .show();
-        }
+          const filteredCourses = courses.filter((course) => {
+            return (
+              course.name.toLowerCase().includes(query) ||
+              course.summary.toLowerCase().includes(query)
+            );
+          });
+
+          if (filteredCourses.length === 0) {
+            $(".no-results").show();
+          } else {
+            $(".no-results").hide();
+          }
+
+          showCourses(1, filteredCourses);
+        });
+
+        // Handle category filter click events
+        $(".course__category a").click(function (event) {
+          event.preventDefault();
+          var category = $(this).data("category");
+          if (category === "all") {
+            $(".course").show();
+          } else {
+            $(".course")
+              .hide()
+              .filter("[data-category='" + category + "']")
+              .show();
+          }
+        });
       });
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
